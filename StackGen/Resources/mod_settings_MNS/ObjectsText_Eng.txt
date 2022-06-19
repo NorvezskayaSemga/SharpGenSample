@@ -1,0 +1,54 @@
+﻿#строка, начинающаяся с решетки, игнорируется
+#с помощью ReadFromFile 'пробел' 'путь к файлу' можно прочитать данные из другого файла.
+#с помощью RemoveLine 'пробел' 'текст' можно удалить из уже прочтенных данных строки,
+#которые начинаются с заданного текста без учета регистра.
+#ID объекта, в остальных столбцах возможные названия
+#разделитель - _
+
+ReadFromFile .\Resources\mod_settings_Vanilla\ObjectsText_Eng.txt
+
+#руины (названия такие, чтобы можно было их использовать безотносительно того, кто сидит внитри. При этом названия разные. Вероятно, это понадобится при добавлении квестов)
+G000RU0000011_Gates of the Abyss_Burning rift_Fire temple_Hellish cleft_Chaos Rift
+G000RU0000012_Encampment
+G000RU0000013_Mine
+G000RU0000014_Water fort_Sea fort_Maritime fortress
+G000RU0000015_Lair
+G000RU0000016_Ancient temple
+G000RU0000017_Fort_Castle_Citadel_Fortress
+G000RU0000018_Ice fort_Frost fort_Frozen fortress
+G000RU0000019_Lighthouse_Abandoned lighthouse_Outcasts tower
+G000RU0000020_Cave_Lair of the beast
+G000RU0000021_Fairy Gardens
+G000RU0000022_Cursed Grove_Fel Garden
+
+G000RU0000011_Monument of hatred_Cage of the exhausted_Living obelisk_Spire of despair
+G000RU0000012_Refugee camp_Lost community
+G000RU0000013_Mysterious adits_Gem mining_Depleted mine_Forbidden laboratory
+G000RU0000014_Merfolk casemates_Pirate hold_Flooded citadel
+G000RU0000015_Spiders manhole_Arachne fathomless_Stronghold of nets
+G000RU0000016_Chapel wall_Perverted altar
+G000RU0000017_Frontier fortress_Chambers of lords_Aristocrats apartments_Palace of negotiations
+G000RU0000018_Capitol of the frozenones_Monolith of coldborned_North residence
+G000RU0000019_Forgotten dock_Merchant harbor tower_Flooded donjon
+G000RU0000020_Cutthroat grotto_Stalactite prison_Apatite cave
+G000RU0000021_Forester's hut_Archon's shelter_Eternal autumn mansion
+G000RU0000022_Hall of the lepers_Plagueborne resident_Lair of terror
+G000RU0000023_Pilgrims bastion_Bulwark of mercy_North outpost
+
+G000RU0000011_Palace of madness_Peak of the rejected
+G000RU0000012_Cantonment_Hillfort_Settlement_Camp of deserters_Refuge of the abandoned
+G000RU0000013_Collapsed tunnel_Closed mine
+G000RU0000014_Sea bastion
+G000RU0000015_Cobwebby passage_Silk peak_Spider-mountain range
+G000RU0000016_Forbidden temple_Shrine of disgrace_Sanctuary of life_Defiled shrine
+G000RU0000018_Ice citadel_Rune bastion
+G000RU0000019_Tower of drowned one
+G000RU0000020_Harpies cliff_Cloud cave_Abandoned nest_Cave of skulls
+G000RU0000021_Houses of enlightenment_Forest refuge_Grove of peace
+G000RU0000022_Grove of madness_Hall of darkness
+G000RU0000023_Fortification_Mountain fortress_Snow citadel_Five-tower fort_Northern hideout
+
+#торговец (названия такие, чтобы можно было их использовать безотносительно того, что продается)
+G000SI0000MERH08_Schooner "Soloniel's wrath"_Privateers from Merchant Sea_Brigantine "Sea Devil"
+G000SI0000MERH08_Merchant sloop "Feduan"_Caravel "Golden doe"_Sloop "Luck catcher"_Schooner "Rock Wolf"
+G000SI0000MERH08_Caravel "Nixen's smile"_Merchant schooner "Flitter goblin"_Brigantine "Frisky Goat"

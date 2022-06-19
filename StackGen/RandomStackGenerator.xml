@@ -1,0 +1,2582 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+RandomStackGenerator
+</name>
+</assembly>
+<members>
+<member name="M:RandomStackGenerator.MapGenWrapper.#ctor(RandomStackGenerator.ImpenetrableObjects@)">
+	<param name="ImpObjectPlacer">Инициализированный класс</param>
+</member><member name="M:RandomStackGenerator.MapGenWrapper.SimpleGen(RandomStackGenerator.Map.SettingsMap@,RandomStackGenerator.Map.SettingsLoc@,RandomStackGenerator.Map.SettingsLoc@,System.Int32,System.String)">
+	<summary>Генерирует заготовку ландшафта. В случае неудачи вернет пустую карту с сохраненным логом</summary>
+	<param name="sM">Общие настройки для карты</param>
+	<param name="sR">Настройки для стартовых локаций играбельных рас.
+ Дробная часть определяет шанс округления большую сторону</param>
+	<param name="sC">Настройки для остальных локаций. 
+ Значение количества объектов для каждой локации будет умножаться на отношение площади локации к площади средней локации (Pi*AverageRadius^2).
+ Дробная часть определяет шанс округления в большую сторону. В случае округления вниз дробная часть добавляется к максимальному количеству шахт</param>
+	<param name="genTimeLimit">Максимальное время на операцию расстановки объектов в миллисекундах.
+ Она обычно производится меньше чем за пару секунд, но бывает, что выполняется дольше минуты.
+ В этом случае быстрее перегенерировать карту.
+ Если не получится с пяти попыток, вернет пустую карту с сохраненным логом</param>
+	<param name="modName">Название мода, на котором происходит генерация.
+ Ваианты можно получить из GenDefaultValues.GetSupportedMods</param>
+</member><member name="M:RandomStackGenerator.MapGenWrapper.TemplateGen(RandomStackGenerator.Map.SettingsMap@,RandomStackGenerator.ImpenetrableMeshGen.GenSettings.LocationGenSetting[]@,System.Int32,System.String)">
+	<summary>Генерирует заготовку ландшафта. В случае неудачи вернет пустую карту с сохраненным логом</summary>
+	<param name="sM">Общие настройки для карты</param>
+	<param name="sL">Настройки для каждой локации. Первыми должны идти стартовые локации рас.
+ Коментарий к настройкам стартовых локаций играбельных рас:
+ дробная часть определяет шанс округления большую сторону.
+ Комментарий к настройкам остальных локаций:
+ Значение количества объектов для каждой локации будет умножаться на отношение площади локации к площади, заданной в настройках (Pi*AverageRadius^2).
+ Дробная часть определяет шанс округления в большую сторону. В случае округления вниз дробная часть добавляется к максимальному количеству шахт </param>
+	<param name="genTimeLimit">Максимальное время на операцию расстановки объектов в миллисекундах.
+ Она обычно производится меньше чем за пару секунд, но бывает, что выполняется дольше минуты.
+ В этом случае быстрее перегенерировать карту.
+ Если не получится с пяти попыток, вернет пустую карту с сохраненным логом</param>
+	<param name="modName">Название мода, на котором происходит генерация.
+ Ваианты можно получить из GenDefaultValues.GetSupportedMods</param>
+</member><member name="M:RandomStackGenerator.MapGenWrapper.TemplatePoolGen(RandomStackGenerator.ImpenetrableMeshGen.GenSettings[]@,System.Int32,System.String)">
+	<summary>Генерирует заготовку ландшафта. В случае неудачи вернет пустую карту с сохраненным логом</summary>
+	<param name="templates">Шаблоны, из которых случайным образом будет выбран один</param>
+	<param name="genTimeLimit">Максимальное время на операцию расстановки объектов в миллисекундах.
+ Она обычно производится меньше чем за пару секунд, но бывает, что выполняется дольше минуты.
+ В этом случае быстрее перегенерировать карту.
+ Если не получится с пяти попыток, вернет пустую карту с сохраненным логом</param>
+	<param name="modName">Название мода, на котором происходит генерация.
+ Ваианты можно получить из GenDefaultValues.GetSupportedMods</param>
+</member><member name="M:RandomStackGenerator.MapGenWrapper.CommonGen(RandomStackGenerator.ImpenetrableMeshGen.GenSettings@,System.Int32,System.String)">
+	<summary>Генерирует заготовку ландшафта. В случае неудачи вернет пустую карту с сохраненным логом</summary>
+	<param name="settGen">Если настройки прочтены из файла, генератор сам разберется, для какого они режима</param>
+	<param name="genTimeLimit">Максимальное время на операцию расстановки объектов в миллисекундах.
+ Она обычно производится меньше чем за пару секунд, но бывает, что выполняется дольше минуты.
+ В этом случае быстрее перегенерировать карту.
+ Если не получится с пяти попыток, вернет пустую карту с сохраненным логом</param>
+</member><member name="M:RandomStackGenerator.StackPowerGen.Gen(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap@,RandomStackGenerator.Map.SettingsLoc@,RandomStackGenerator.Map.SettingsLoc@)">
+	<summary>Заполнит m.groupStats, где ключ - ID группы, значение - параметры генерации без определенной расы отряда</summary>
+	<param name="m">Заготовка карты после работы генератора положения отрядов</param>
+	<param name="settMap">Общие настройки для карты</param>
+	<param name="settRaceLoc">Настройки для стартовых локаций играбельных рас.
+ Дробная часть определяет шанс округления большую сторону</param>
+	<param name="settCommLoc">Настройки для остальных локаций. 
+ Значение количества опыта для каждой локации будет умножаться на отношение площади локации к площади средней локации (Pi*AverageRadius^2)</param>&gt;
+
+</member><member name="M:RandomStackGenerator.StackPowerGen.Gen(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap@,RandomStackGenerator.Map.SettingsLoc[]@)">
+	<summary>Заполнит m.groupStats, где ключ - ID группы, значение - параметры генерации без определенной расы отряда</summary>
+	<param name="m">Заготовка карты после работы генератора положения отрядов</param>
+	<param name="settMap">Общие настройки для карты</param>
+	<param name="settLoc">Настройки для каждой локации. Первыми должны идти стартовые локации рас.
+ Коментарий к настройкам стартовых локаций играбельных рас:
+ дробная часть определяет шанс округления большую сторону.
+ Комментарий к настройкам остальных локаций:
+ Значение количества объектов для каждой локации будет умножаться на отношение площади локации к площади, заданной в настройках (Pi*AverageRadius^2).
+ Дробная часть определяет шанс округления в большую сторону. В случае округления вниз дробная часть добавляется к максимальному количеству шахт </param>
+</member><member name="M:RandomStackGenerator.RaceGen.Gen(RandomStackGenerator.Map@,System.Int32[]@,RandomStackGenerator.Map.SettingsLoc@,RandomStackGenerator.Map.SettingsLoc)">
+	<summary>Сгенерирует для каждой локации и каждого отряда допустимые расы</summary>
+	<param name="m">Заготовка карты после работы генератора положения отрядов и их силы</param>
+	<param name="PlayableRaces">За какие расы будем играть. Если Nothing, то расы будут сгенерированы</param>
+	<param name="settRaceLoc">Настройки для стартовых локаций играбельных рас</param>
+	<param name="settCommLoc">Настройки для остальных локаций</param>
+</member><member name="M:RandomStackGenerator.RaceGen.Gen(RandomStackGenerator.Map@,System.Int32[]@,RandomStackGenerator.Map.SettingsLoc[]@)">
+	<summary>Сгенерирует для каждой локации и каждого отряда допустимые расы</summary>
+	<param name="m">Заготовка карты после работы генератора положения отрядов и их силы</param>
+	<param name="PlayableRaces">За какие расы будем играть. Если Nothing, то расы будут сгенерированы</param>
+	<param name="settLoc">Настройки для каждой локации. Первыми должны идти стартовые локации рас.</param>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.AllUnitsList">
+	<summary>
+ Dсе юниты в игре
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.AllItemsList">
+	<summary>
+ &gt;Все предметы в игре
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.AllSpellsList">
+	<summary>
+ Все заклинания в игре
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.AllModificatorsList">
+	<summary>
+ Все модификаторы в игре
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.settings">
+	<summary>
+ Настройки генерации
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.mapData">
+	<summary>
+ Информация о карте
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.modData">
+	<summary>
+ Кастомная информация о моде
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.MapInfo.capitalPos">
+	<summary>Положение столиц (угол с наименьшей координатой по X и Y)</summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.MapInfo.mapLords">
+	<summary>Список лордов на карте. Юниты из веток развития соответствующих рас добавляться в отряды не будут, 
+ если SettingsInfo.AddUnitsFromBranchesToStacks = False и MapLords != Nothing.</summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.MapInfo.minesAmount">
+	<summary>
+ Количество рудников на карте. По умолчанию всех по одному
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.SettingsInfo.modName">
+	<summary>
+ Название мода, на котором происходит генерация.
+ Ваианты можно получить из GenDefaultValues.GetSupportedMods
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.SettingsInfo.talismanChargesDefaultAmount">
+	<summary>
+ Количество использований талисманов. По умолчанию пять
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.SettingsInfo.ignoreUnitRace">
+	<summary>Если True, генератор будет игнорировать ограничения по расе при создании отрядов. По умолчанию False</summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.SettingsInfo.excludeLoreUnits">
+	<summary>Если True, генератор не будет добавлять в отряды юнитов, связнных с лором. По умолчанию False</summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.SettingsInfo.preserveLoreUnits">
+	<summary>Если True, генератор будет сохранять в отрядах юнитов, связнных с лором. По умолчанию False</summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.SettingsInfo.addUnitsFromBranchesToStacks">
+	<summary>Если False, генератор не будет добавлять в отряды юнитов из веток развития, если столица их расы есть на карте. По умолчанию False</summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.SettingsInfo.preserveUnitsOverlevel">
+	<summary>
+ Если True, не будет учитывать оверлевелы при расчете опыта за убийство и планок опыта. Вместо этого добавит оверлевелы новому отряду. По умолчанию False
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.SettingsInfo.applyStrictTypesFilter">
+	<summary>
+ При перегенерации предметов если в луте было знамя, то и после перегенерации будет какое-то знамя. 
+ Если были сапоги - будут какие-нибудь сапоги.
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.SettingsInfo.neutralOrderWeight">
+	<summary>
+ Если отряд имеет приказ "Стоять" (L_STAND) и он не принадлежит играбельной расе,
+ то при его перегенерации будет шанс получить другой приказ в соответствие
+ с настройками: ключ - название приказа, значение - стат. вес.
+ По умолчанию L_STAND=1, L_NORMAL=0, L_GUARD=0, L_BEZERK=0, L_ROAM=0
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.SettingsInfo.unitsStrengthUniformity">
+	<summary>
+ Насколько сильно генератор отрядов будет стремиться создавать отряды, в которых будут юниты примерно равной силы.
+ Как оно работает:
+ Создается 12 отрядов, соответствующих заданным параметрам генерации (естественно, они соответствуют в разной степени)
+ Из созданных отрядов случайным образом выбирается тот, что будет помещен на карту,
+ чем лучше отряд соответствует заданным параметрам, тем больше стат. вес.
+ unitsStrengthUniformity - выбираем как обычно.
+ unitsStrengthUniformity больше 0 - у отрядов с меньшим разбросом силы юнитов будет увеличенный стат. вес.
+ unitsStrengthUniformity меньше 0 - у отрядов с большим разбросом силы юнитов будет увеличенный стат. вес.
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.CustomModSettings.ExcludedObjects">
+	<summary>
+ ID исключенных юнитов, предметов и заклинаний.
+ Если Nothing - будут использованы стандартные настройки для мода
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.CustomModSettings.LootItemChanceMultiplier">
+	<summary>
+ Ключ - идентификатор предмета, Значение - число, на которое дополнительно умножается шанс появления предмета.
+ Если Nothing - будут использованы стандартные настройки для мода
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.ConstructorInput.CustomModSettings.PreservedItems">
+	<summary>
+ ID предметов, которые генератор должен оставлять на месте.
+ Если Nothing - будут использованы стандартные настройки для мода
+ </summary>
+</member><member name="M:RandomStackGenerator.RandStack.ConstructorInput.CustomModSettings.GetDefaultExcludedObjects(RandomStackGenerator.Log@,System.String)">
+	<summary>Читает список юнитов, предметов и заклинаний, которые не должен использовать генератор</summary>
+	<param name="log">Лог для записи отчета, можно nothing</param>
+	<param name="modName">Название мода, на котором происходит генерация.
+ Ваианты можно получить из GenDefaultValues.GetSupportedMods</param>
+</member><member name="M:RandomStackGenerator.RandStack.ConstructorInput.CustomModSettings.GetDefaultExcludedLoreObjects(RandomStackGenerator.Log@,System.String)">
+	<summary>Читает список лорных юнитов, предметов и заклинаний, которые не должен использовать генератор</summary>
+	<param name="log">Лог для записи отчета, можно nothing</param>
+	<param name="modName">Название мода, на котором происходит генерация.
+ Ваианты можно получить из GenDefaultValues.GetSupportedMods</param>
+</member><member name="M:RandomStackGenerator.RandStack.ConstructorInput.CustomModSettings.GetDefaultPreservedObjects(RandomStackGenerator.Log@,System.String)">
+	<summary>Читает список предметов, юнитов и заклинаний, которые генератор должен оставлять на месте</summary>
+	<param name="log">Лог для записи отчета, можно nothing</param>
+	<param name="modName">Название мода, на котором происходит генерация.
+ Ваианты можно получить из GenDefaultValues.GetSupportedMods</param>
+</member><member name="M:RandomStackGenerator.RandStack.ConstructorInput.CustomModSettings.GetDefaultLootItemChanceMultiplier(RandomStackGenerator.Log@,System.String)">
+	<summary>Читает множители шанса выпадения для отдельных предметов</summary>
+	<param name="log">Лог для записи отчета, можно nothing</param>
+	<param name="modName">Название мода, на котором происходит генерация.
+ Ваианты можно получить из GenDefaultValues.GetSupportedMods</param>
+</member><member name="F:RandomStackGenerator.RandStack.settings">
+	<summary>
+ Настройки генерации
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.mapData">
+	<summary>
+ Информация о карте
+ </summary>
+</member><member name="F:RandomStackGenerator.RandStack.log">
+	<summary>Сюда генератор пишет лог</summary>
+</member><member name="M:RandomStackGenerator.RandStack.ResetItemWeightMultiplier">
+	<summary>Установит множители шанса появления предметов на значения по умолчанию</summary>
+</member><member name="M:RandomStackGenerator.RandStack.FindUnitStats(System.String)">
+	<summary>Найдет статы юнита по ID (нечувствительно к регистру)</summary>
+	<param name="ID">GxxxUUxxxx</param>
+</member><member name="M:RandomStackGenerator.RandStack.FindItemStats(System.String)">
+	<summary>Найдет статы предмета по ID (нечувствительно к регистру)</summary>
+	<param name="ID">GxxxIGxxxx</param>
+</member><member name="M:RandomStackGenerator.RandStack.FindSpellStats(System.String)">
+	<summary>Найдет статы заклинания по ID (нечувствительно к регистру)</summary>
+	<param name="ID">GxxxSSxxxx</param>
+</member><member name="M:RandomStackGenerator.RandStack.FindModificatorStats(System.String)">
+	<summary>Найдет модификатор по ID (нечувствительно к регистру)</summary>
+	<param name="ID">GxxUMxxxx</param>
+</member><member name="M:RandomStackGenerator.RandStack.GoldToMana(RandomStackGenerator.AllDataStructues.Cost@,System.Double,System.Double)">
+	<summary>Может быть преобразует часть золота в ману. Результат будет кратен 25</summary>
+	<param name="input">Начальные ресурсы. При конвертации начальная мана не пропадет</param>
+	<param name="conversionChance">Шанс сконвертировать часть золота в ману (от 0 до 1)</param>
+	<param name="conversionAmount">Какую часть золота сконвертировать (от 0 до 1)</param>
+</member><member name="M:RandomStackGenerator.RandStack.StackStats(RandomStackGenerator.AllDataStructues.Stack@,System.Boolean)">
+	<summary>Вычисляет параметры отряда по составу. Цена предмета в мане прибавится к стоимости лута в золоте</summary>
+	<param name="stack">ID юнитов и предметов отряда</param>
+	<param name="isSettingsForRuins"> Опция для перегенератора карт.
+ Для руин в любом случае генератор лута не будет обязан добавлять предмет в качестве награды (True).
+ Для остальных объектов (False) генератор будет обязан добавить хоть какой-то предмет, если
+ до перегенерации в награде были предметы, не входящие в список PreservedItems.txt</param>
+</member><member name="M:RandomStackGenerator.RandStack.GetItemsGenSettings(System.Collections.Generic.List{System.String}@,System.Boolean)">
+	<summary>Определит настройки генерации новых предметов</summary>
+	<param name="items">Список предметов объекта</param>
+	<param name="isSettingsForRuins"> Опция для перегенератора карт.
+ Для руин в любом случае генератор лута не будет обязан добавлять предмет в качестве награды (True).
+ Для остальных объектов (False) генератор будет обязан добавить хоть какой-то предмет, если
+ до перегенерации в награде были предметы, не входящие в список PreservedItems.txt</param>
+</member><member name="M:RandomStackGenerator.RandStack.LootCost(System.Collections.Generic.List{RandomStackGenerator.AllDataStructues.Item}@)">
+	<summary>Определяет суммарную ценность предметов</summary>
+	<param name="items">Список предметов</param>
+</member><member name="M:RandomStackGenerator.RandStack.LootCost(RandomStackGenerator.AllDataStructues.Item[]@)">
+	<summary>Определяет суммарную ценность предметов</summary>
+	<param name="items">Список предметов</param>
+</member><member name="M:RandomStackGenerator.RandStack.LootCost(System.Collections.Generic.List{System.String}@)">
+	<summary>Определяет суммарную ценность предметов</summary>
+	<param name="items">Список предметов</param>
+</member><member name="M:RandomStackGenerator.RandStack.LootCost(System.String[]@)">
+	<summary>Определяет суммарную ценность предметов</summary>
+	<param name="items">Список предметов</param>
+</member><member name="M:RandomStackGenerator.RandStack.LootCost(RandomStackGenerator.AllDataStructues.Item@)">
+	<summary>Определяет ценность предмета</summary>
+	<param name="item">Предмет</param>
+</member><member name="M:RandomStackGenerator.RandStack.LootCost(System.String)">
+	<summary>Определяет ценность предмета</summary>
+	<param name="item">Предмет</param>
+</member><member name="M:RandomStackGenerator.RandStack.ItemsGen(RandomStackGenerator.AllDataStructues.CommonLootCreationSettings,System.Int32)">
+	<summary>Генерирует набор предметов. В принципе может вернуть пустой список</summary>
+	<param name="GenSettings">Общие настройки</param>
+	<param name="LogID">Номер задачи. От 0 до Size-1. Если меньше 0, запись будет сделана в общий лог</param>
+</member><member name="M:RandomStackGenerator.RandStack.ItemsGen(RandomStackGenerator.AllDataStructues.CommonLootCreationSettings,System.Double,System.Int32)">
+	<summary>Генерирует набор предметов. В принципе может вернуть пустой список</summary>
+	<param name="GenSettings">Общие настройки</param>
+	<param name="LootCostMultiplier">Множитель стоимости предметов</param>
+	<param name="LogID">Номер задачи. От 0 до Size-1. Если меньше 0, запись будет сделана в общий лог</param>
+</member><member name="M:RandomStackGenerator.RandStack.ThingGen(RandomStackGenerator.AllDataStructues.CommonLootCreationSettings,System.Int32)">
+	<summary>Генерирует один предмет. Если не получится выбрать подходящий предмет, вернет пустую строку</summary>
+	<param name="GenSettings">Общие настройки</param>
+	<param name="LogID">Номер задачи. От 0 до Size-1. Если меньше 0, запись будет сделана в общий лог</param>
+</member><member name="M:RandomStackGenerator.RandStack.ThingGen(RandomStackGenerator.AllDataStructues.CommonLootCreationSettings,System.Double,System.Int32)">
+	<summary>Генерирует один предмет. Если не получится выбрать подходящий предмет, вернет пустую строку</summary>
+	<param name="GenSettings">Общие настройки</param>
+	<param name="LootCostMultiplier">Множитель стоимости предметов</param>
+	<param name="LogID">Номер задачи. От 0 до Size-1. Если меньше 0, запись будет сделана в общий лог</param>
+</member><member name="M:RandomStackGenerator.RandStack.ItemsFilter.Simple(System.Int32,RandomStackGenerator.AllDataStructues.Item@)">
+	<summary>Фильтр предметов по тому, является ли предмет исключенным</summary>
+</member><member name="M:RandomStackGenerator.RandStack.ItemsFilter.TypeStrict(System.Int32,RandomStackGenerator.AllDataStructues.Item@)">
+	<summary>Фильтр предметов по типу: знамя, артефакт, реликвия, свиток, сфера и т.д.</summary>
+</member><member name="M:RandomStackGenerator.RandStack.ItemsFilter.TypeSoft(System.Int32,RandomStackGenerator.AllDataStructues.Item@,RandomStackGenerator.AllDataStructues.ItemGenSettings[]@,System.Int32@)">
+	<summary>Фильтр предметов по типу: расходуемый, не расходуемый или драгоценность</summary>
+</member><member name="M:RandomStackGenerator.RandStack.ItemsFilter.CostBar(System.Int32,RandomStackGenerator.AllDataStructues.Item@,RandomStackGenerator.AllDataStructues.ItemGenSettings[]@,System.Int32@,System.Int32@)">
+	<summary>Фильтр предметов их стоимости относительно выбранной планки цены</summary>
+</member><member name="M:RandomStackGenerator.RandStack.ItemsFilter.CostSum(System.Int32,RandomStackGenerator.AllDataStructues.Item@,RandomStackGenerator.AllDataStructues.ItemGenSettings[]@,System.Int32@,System.Int32@)">
+	<summary>Фильтр предметов их стоимости относительно текущей доступной максимальной цены</summary>
+</member><member name="M:RandomStackGenerator.RandStack.ItemsFilter.TypeCost(System.Int32,RandomStackGenerator.AllDataStructues.Item@,System.Int32@)">
+	<summary>Фильтр предметов по стоимости (стоимость находится в диапазоне)</summary>
+</member><member name="M:RandomStackGenerator.RandStack.ItemsFilter.StrictCost_Min(System.Int32@)">
+	<summary>Строгий фильтр по минимальной цене предмета</summary>
+</member><member name="M:RandomStackGenerator.RandStack.ItemsFilter.StrictCost_Max(System.Int32@)">
+	<summary>Строгий фильтр по максимальной цене предмета</summary>
+</member><member name="M:RandomStackGenerator.RandStack.Gen(RandomStackGenerator.AllDataStructues.CommonStackCreationSettings@)">
+	<summary>Создаст отряд  в соответствие с желаемыми параметрами. Не нужно пытаться создать отряд водных жителей на земле</summary>
+	<param name="GenSettings">Общие настройки</param>
+</member><member name="M:RandomStackGenerator.RandStack.Gen(RandomStackGenerator.AllDataStructues.CommonStackCreationSettings@,System.Double,System.Double)">
+	<summary>Создаст отряд  в соответствие с желаемыми параметрами. Не нужно пытаться создать отряд водных жителей на земле</summary>
+	<param name="GenSettings">Общие настройки</param>
+	<param name="StackStrengthMultiplier">Множитель силы отряда: изменяем опыт за убийство и среднюю планку опыта</param>
+	<param name="LootCostMultiplier">Множитель стоимости предметов</param>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(RandomStackGenerator.RandomSelection@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(RandomStackGenerator.ImpenetrableMeshGen.GenSettings[]@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(System.Int32[]@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(System.Double[]@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(System.String[]@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(System.Boolean[]@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(RandomStackGenerator.Point[]@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(System.Collections.Generic.List{System.Int32}@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(System.Collections.Generic.List{System.Double}@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(System.Collections.Generic.List{System.String}@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(System.Collections.Generic.List{System.Boolean}@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndItemIndex(System.Collections.Generic.List{RandomStackGenerator.Point}@)">
+	<summary>Returns random value with uniform distribution from 0 to items count - 1.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndDbl(System.Double@,System.Double@)">
+	<summary>Returns random value with uniform distribution from min to max.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.RndInt(System.Int32@,System.Int32@)">
+	<summary>Returns random value with uniform distribution from min to max.</summary>
+</member><member name="M:RandomStackGenerator.RndValueGen.Shuffle(System.Int32[]@,System.Boolean)">
+	<summary>Перемешает массив</summary>
+	<param name="v">Массив</param>
+</member><member name="M:RandomStackGenerator.RandomSelection.RandomSelection(System.Double[][]@,System.Double[]@,System.Double[]@,System.Double,System.Double[]@)">
+	<summary>Dыбирает случайным образом запись из списка
+ Если массивы Stats (v) и DesiredStats (d) инициализированы, то каждой записи на их основании будет присвоен стат. вес в соответствие с распределением Гаусса g(v,d).
+ Если Stats (v1, v2, v3...) содержит несколько массивов, то DesiredStats (d1, d2, d3...) должен содержать соответствующее кол-во значений, и в этом случае для получения полного стат. веса стат. веса от каждого параметра будут перемножены g=g(v1,d1)*g(v2,d2)*g(v3,d3)...
+ Если же оба массива не инициализированы, то у всех записей будет одинаковый стат. вес</summary>
+	<param name="Stats">Массивы параметров, по которым выбираем запись</param>
+	<param name="DesiredStats">Какое значение будет иметь наибольший стат. вес (по одному на каждый массив значений)</param>
+	<param name="StatsMultiplier">Множитель "желаемого" значения, отражающий особенности выбираемого объекта (например, размер юнита или тип предмета).
+ Если не инициализирован, то считается что множитель для всех записей равен единице</param>
+	<param name="BaseSmearing">Множитель для Сигмы в распределении Гаусса. Сигма=Множитель*Желаемое_значение</param>
+	<param name="WeightMultiplier">Дополнительный множитель для стат. веса</param>
+</member><member name="M:RandomStackGenerator.RandomSelection.RandomSelection(System.Double[][]@,System.Double[]@,System.Double)">
+	<summary>Dыбирает случайным образом запись из списка
+ Если массивы Stats (v) и DesiredStats (d) инициализированы, то каждой записи на их основании будет присвоен стат. вес в соответствие с распределением Гаусса g(v,d).
+ Если Stats (v1, v2, v3...) содержит несколько массивов, то DesiredStats (d1, d2, d3...) должен содержать соответствующее кол-во значений, и в этом случае для получения полного стат. веса стат. веса от каждого параметра будут перемножены g=g(v1,d1)*g(v2,d2)*g(v3,d3)...
+ Если же оба массива не инициализированы, то у всех записей будет одинаковый стат. вес</summary>
+	<param name="Stats">Массивы параметров, по которым выбираем запись</param>
+	<param name="DesiredStats">Какое значение будет иметь наибольший стат. вес (по одному на каждый массив значений)</param>
+	<param name="BaseSmearing">Множитель для Сигмы в распределении Гаусса. Сигма=Множитель*Желаемое_значение</param>
+</member><member name="M:RandomStackGenerator.RandomSelection.RandomSelection">
+	<summary>Dыбирает случайным образом запись из списка, считая, что у всех записей будет одинаковый стат. вес</summary>
+</member><member name="M:RandomStackGenerator.RandomSelection.RandomSelection(System.Double[]@)">
+	<summary>Dыбирает случайным образом запись из списка</summary>
+	<param name="Weight">Вероятность выбрать запись прямо пропорциональна величине стат. веса. Сумма весов может быть не равна единице</param>
+</member><member name="F:RandomStackGenerator.Common.excludedObjects">
+	<summary>Список исключаемых объектов</summary>
+</member><member name="F:RandomStackGenerator.Common.preservedItems">
+	<summary>Список предметов, которые нельзя перегенерировать</summary>
+</member><member name="F:RandomStackGenerator.Common.customRace">
+	<summary>Расы юнитов, назначаемые независимо от ресурсов игры</summary>
+</member><member name="F:RandomStackGenerator.Common.objectRace">
+	<summary>Допустимые расы локаций и поверхности, на которых можн ставить объекты</summary>
+</member><member name="F:RandomStackGenerator.Common.PlateauConstruction">
+	<summary>Описывает то, как цеплять друг к другу "Плато" и "Водопады"</summary>
+</member><member name="F:RandomStackGenerator.Common.LordsRace">
+	<summary>Расы лордов</summary>
+</member><member name="F:RandomStackGenerator.Common.LootItemChanceMultiplier">
+	<summary>Множитель шанса появления предмета</summary>
+</member><member name="F:RandomStackGenerator.Common.SoleUnits">
+	<summary>Ключ - ID юнита, значение - ID юнитов, с которыми он не должен быть в одном отряде</summary>
+</member><member name="F:RandomStackGenerator.Common.BigStackUnits">
+	<summary>Ключ - ID юнита, значение - минимальный размер стэка для юнита</summary>
+</member><member name="F:RandomStackGenerator.Common.itemType">
+	<summary>Ключ - ID типа предмета, значение - тип предмета</summary>
+</member><member name="F:RandomStackGenerator.Common.itemTypeID">
+	<summary>Ключ - тип предмета, значение - ID типа предмета</summary>
+</member><member name="M:RandomStackGenerator.Common.#ctor(System.String)">
+	<param name="modName">Название мода, на котором происходит генерация.
+ Ваианты можно получить из GenDefaultValues.GetSupportedMods.
+ Если передать nothing, то не будет возможности читать настройки из файлов.
+ Список обозначений рас будет взят из MNS</param>
+</member><member name="M:RandomStackGenerator.Common.PrintResourcesToLog(RandomStackGenerator.Log@,RandomStackGenerator.RandStack@)">
+	<summary>Передаст в лог содержимое excludedObjects, customRace, objectRace, LootItemChanceMultiplier, SoleUnits</summary>
+	<param name="log">Сюда будем писать данные</param>
+	<param name="rStack">Инициализированный класс</param>
+</member><member name="M:RandomStackGenerator.Common.RaceIdentifierToSubrace(System.String,System.Boolean)">
+	<summary>Возвращает ID расы, соответствующее файлам игры. Если не найдет, то вернет -1</summary>
+	<param name="ID">Идентификатор расы (файл races.txt)</param>
+</member><member name="M:RandomStackGenerator.Common.RaceIdentifierToSubrace(System.Int32)">
+	<summary>Возвращает ID расы, соответствующее файлам игры</summary>
+	<param name="ID">Идентификатор расы (файл races.txt)</param>
+</member><member name="M:RandomStackGenerator.Common.TxtSplit(System.String)">
+	<summary>Разбивает на строки текст по разделителям Chr(10) и Chr(13). Заменяет все табы на пробелы, удаляет повторяющиеся подряд пробелы, удаляет пробелы в начале и конце строки. Не добавляет в выходной массив строки, начинающиеся с #</summary>
+	<param name="TXT">Какой-нибудь текст</param>
+</member><member name="M:RandomStackGenerator.Common.TxtSplit(System.String,System.String@)">
+	<summary>Разбивает на строки текст по разделителям Chr(10) и Chr(13). Заменяет все табы на пробелы, удаляет повторяющиеся подряд пробелы, удаляет пробелы в начале и конце строки. Не добавляет в выходной массив строки, начинающиеся с #</summary>
+	<param name="TXT">Какой-нибудь текст</param>
+	<param name="transferChar">Если строка заканчивается этой подстрокой, то подстрока удаляется, а текущая строка объединяется со следующей</param>
+</member><member name="M:RandomStackGenerator.Common.TxtSplit(System.String[])">
+	<summary>Разбивает на строки текст по разделителям Chr(10) и Chr(13). Заменяет все табы на пробелы, удаляет повторяющиеся подряд пробелы, удаляет пробелы в начале и конце строки. Не добавляет в выходной массив строки, начинающиеся с #</summary>
+	<param name="TXT">Какой-нибудь текст</param>
+</member><member name="M:RandomStackGenerator.Common.TxtSplit(System.String[],System.String@)">
+	<summary>Разбивает на строки текст по разделителям Chr(10) и Chr(13). Заменяет все табы на пробелы, удаляет повторяющиеся подряд пробелы, удаляет пробелы в начале и конце строки. Не добавляет в выходной массив строки, начинающиеся с #</summary>
+	<param name="TXT">Какой-нибудь текст</param>
+	<param name="transferChar">Если строка заканчивается этой подстрокой, то подстрока удаляется, а текущая строка объединяется со следующей</param>
+</member><member name="M:RandomStackGenerator.Common.Gauss(System.Double,System.Double,System.Double)">
+	<summary>e^(-0.5 * ((X - avX) / (sigma * avX)) ^ 2)</summary>
+</member><member name="M:RandomStackGenerator.Common.ReadExcludedObjects">
+	<summary>Читает список юнитов, предметов и заклинаний, которые не должен использовать генератор</summary>
+</member><member name="M:RandomStackGenerator.Common.ReadExcludedObjects(System.Collections.Generic.List{System.String}@)">
+	<summary>Читает список юнитов, предметов и заклинаний, которые не должен использовать генератор</summary>
+	<param name="ExcludeLists">Файлы со списками исключенных объектов. Записи в них могут повторяться. 
+ Допускается передача неинициализитрованного массива.
+ Не воспринимает ключевые слова</param>
+</member><member name="M:RandomStackGenerator.Common.ReadExcludedLoreObjects">
+	<summary>Читает список лорных юнитов, предметов и заклинаний, которые не должен использовать генератор</summary>
+</member><member name="M:RandomStackGenerator.Common.ReadLootItemChanceMultiplier">
+	<summary>Читает множители шанса выпадения для отдельных предметов</summary>
+</member><member name="M:RandomStackGenerator.Common.ReadLootItemChanceMultiplier(System.Collections.Generic.List{System.String}@)">
+	<summary>Читает множители шанса выпадения для отдельных предметов</summary>
+	<param name="MultipliersList">Множители шанса появления определенных предметов.
+ Допускается передача неинициализитрованного массива.
+ Не воспринимает ключевые слова</param>
+</member><member name="M:RandomStackGenerator.Common.ReadCustomUnitRace">
+	<summary>Читает список, переопределяющий расы нужных юнитов</summary>
+</member><member name="M:RandomStackGenerator.Common.ReadCustomUnitRace(System.Collections.Generic.List{System.String}@)">
+	<summary>Читает список, переопределяющий расы нужных юнитов</summary>
+	<param name="CustomUnitRace">Список рас юнитов. Записи в них могут повторяться, но записи с повторяющимся ID будут перезаписываться. 
+ Допускается передача неинициализитрованного списка.
+ Не воспринимает ключевые слова</param>
+</member><member name="M:RandomStackGenerator.Common.ReadSoleUnits">
+	<summary>Читает список юнитов, которые должны находиться в отряде в единственном экземпляре</summary>
+</member><member name="M:RandomStackGenerator.Common.ReadSoleUnits(System.Collections.Generic.List{System.String}@)">
+	<summary>Читает список юнитов, которые должны находиться в отряде в единственном экземпляре</summary>
+	<param name="SoleUnitsList">Cписок юнитов. Записи в них могут повторяться, но записи с повторяющимся ID будут перезаписываться. 
+ Допускается передача неинициализитрованного списка.
+ Не воспринимает ключевые слова</param>
+</member><member name="M:RandomStackGenerator.Common.ReadBigStackUnits">
+	<summary>Читает список юнитов, которые могут находиться в отряде начиная с заданного количества слотов</summary>
+</member><member name="M:RandomStackGenerator.Common.ReadBigStackUnits(System.Collections.Generic.List{System.String}@)">
+	<summary>Читает список юнитов, которые могут находиться в отряде начиная с заданного количества слотов</summary>
+	<param name="BigStackUnitsList">Список юнитов. Записи в них могут повторяться, но записи с повторяющимся ID будут перезаписываться.
+ Допускается передача неинициализитрованного списка.
+ Не воспринимает ключевые слова</param>
+</member><member name="M:RandomStackGenerator.Common.ReadCustomBuildingRace">
+	<summary>Читает список, определяющий принадлежность непроходимых объектов</summary>
+</member><member name="M:RandomStackGenerator.Common.ReadCustomBuildingRace(System.Collections.Generic.List{System.String}@)">
+	<summary>Читает список, определяющий принадлежность непроходимых объектов</summary>
+	<param name="CustomBuildingRace">Список рас и положений зданий. Записи в них могут повторяться, но записи с повторяющимся ID будут перезаписываться. 
+ Допускается передача неинициализитрованного списка (будет прочтен дефолтный).
+ Не воспринимает ключевые слова</param>
+</member><member name="M:RandomStackGenerator.Common.ReadPlateauConstructionDescription">
+	<summary>Читает описание того, как цеплять друг к другу "Плато" и "Водопады"</summary>
+</member><member name="M:RandomStackGenerator.Common.ReadPlateauConstructionDescription(System.Collections.Generic.List{System.String}@)">
+	<summary>Читает описание того, как цеплять друг к другу "Плато" и "Водопады"</summary>
+	<param name="PlateauConstructionDescription">Описания.
+ Допускается передача неинициализитрованного списка (будет прочтен дефолтный).
+ Не воспринимает ключевые слова</param>
+</member><member name="M:RandomStackGenerator.Common.ReadPreservedObjects">
+	<summary>Читает список предметов, юнитов и заклинаний, которые генератор должен оставлять на месте</summary>
+</member><member name="M:RandomStackGenerator.Common.ReadPreservedObjects(System.Collections.Generic.List{System.String}@)">
+	<summary>Читает список предметов, юнитов и заклинаний, которые генератор должен оставлять на месте</summary>
+	<param name="PreservedLists">Список ID. Не воспринимает ключевые слова</param>
+</member><member name="M:RandomStackGenerator.Common.ReadLoreUnitsToPreservedObjects">
+	<summary>Добавляет лорных юнитов а список объектов, которые генератор должен оставлять на месте</summary>
+</member><member name="M:RandomStackGenerator.Common.RecursiveReadFile(System.String,System.Collections.Generic.List{System.String}@)">
+	<summary>Прочитает файл и если встретит в нем ReadFromFile, прочитает и из указанного файла, 
+ разместив результат в том месте, где встретилось это ключевое слово</summary>
+	<param name="path">Путь к файлу</param>
+	<param name="pathList">Список уже прочитанных файлов. Используется для проверки на зацикленность чтения</param>
+</member><member name="M:RandomStackGenerator.Common.RecursiveReadFile(System.String[],System.Collections.Generic.List{System.String}@)">
+	<summary>Прочитает файл и если встретит в нем ReadFromFile, прочитает и из указанного файла, 
+ разместив результат в том месте, где встретилось это ключевое слово.
+ Пропускает пустые строки</summary>
+	<param name="content">Содержимое файла</param>
+	<param name="pathList">Список уже прочитанных файлов. Используется для проверки на зацикленность чтения</param>
+</member><member name="M:RandomStackGenerator.Common.ValueLowerBound(System.Double@,System.Double@)">
+	<summary>Вернет нижнюю границу сучайного числа</summary>
+	<param name="ratio">Отношение значения верхней границы к значению нижней</param>
+	<param name="average">Среднее значение</param>
+</member><member name="M:RandomStackGenerator.Common.ValueUpperBound(System.Double@,System.Double@)">
+	<summary>Вернет верхнюю границу сучайного числа</summary>
+	<param name="ratio">Отношение значения верхней границы к значению нижней</param>
+	<param name="average">Среднее значение</param>
+</member><member name="F:RandomStackGenerator.DecorationPlacingPropertiesFields.race">
+	<summary>Допустимые расы</summary>
+</member><member name="F:RandomStackGenerator.DecorationPlacingPropertiesFields.ground">
+	<summary>Можно ли ставить на суше</summary>
+</member><member name="F:RandomStackGenerator.DecorationPlacingPropertiesFields.water">
+	<summary>Можно ли ставить на воде</summary>
+</member><member name="M:RandomStackGenerator.DecorationPlacingProperties.#ctor(System.String[]@,RandomStackGenerator.Common@)">
+	<param name="racesRow">Первый столбец - идентификаторы объектов. В остальных - допустимые места расстановки объектов и расы</param>
+	<param name="comm">Инициализированный класс</param>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.ExpBarAverage">
+	<summary>Примерная планка опыта для маленьких воинов</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.Race">
+	<summary>Допустимые расы для отряда</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.ExpStackKilled">
+	<summary>Примерный опыт за убийство стэка</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.StackSize">
+	<summary>Количество свободных ячеек под отряд. Есть 10% шанс на +1 слот и 10% на -1 слот</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.MaxGiants">
+	<summary>Максимальное количество больших воинов в отряде</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.MeleeCount">
+	<summary>Сколько ячеек в первом ряду должно быть заполнено</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.LootCost">
+	<summary>Стоимость лута (предметы со стоимостью в золоте, равной нулю, не добавляются). При расчете стоимость драгоценностей уменьшается в два раза</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.LocationName">
+	<summary>Идентификатор локации, для которой сгенерирован отряд</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.IGen">
+	<summary>Настройки генерации предметов</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.WeightedOverlevel">
+	<summary>Суммарный оверлевел в отряде с учетом силы юнитов</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.WaterOnly">
+	<summary>Если у отряда приказ отличный от "стоять",
+ лидер для создаваемого отряда будет строго соответствовать этой настройке</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.preservedUnits">
+	<summary>Выбранные юниты будут сохранены в отряде</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.shopContent">
+	<summary>Не nothing только для торговцев предметами и магией, а также лагеря наемников.
+ Список идентификаторов содержимого лавки с предметами/заклинаниями/наемниками, 
+ либо параметра генерации (цена, тип или тип#цена для предмета, уровень для заклинания и 
+ планка опыта на 1 занимаемый слот для существа).
+ Типы предметов можно посмотреть в Items.txt или Common.itemType
+ Примеры:
+ Наемник - g000uu0001 200 700
+ Волшебник - g000ss0005 g000ss0006 1RT 2CF (T - может быть глобальным, F - не может. H,L,C,U,E - раса, R - случайная раса)
+ Торговец - g000ig0002 1200 750 attack_artifact sphere#300 6#400
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.isInternalCityGuard">
+	<summary>True, если отряд является внутренней охраной города</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.LeaderModificators">
+	<summary>Список модификаторов для лидера</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.UnitsModificators">
+	<summary>Список модификаторов, которые нужно распределить между юнитами</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.DesiredStats.ModificatorsEffect">
+	<summary>Во сколько раз отряд стал сильнее из-за модификаторов</summary>
+</member><member name="M:RandomStackGenerator.AllDataStructues.DesiredStats.HasPreservedLeader">
+	<summary>
+ True, если в preservedUnits есть лидер
+ </summary>
+</member><member name="M:RandomStackGenerator.AllDataStructues.DesiredStats.PreservedSlots">
+	<summary>
+ Количество слотов под сохраненных юнитов
+ </summary>
+</member><member name="M:RandomStackGenerator.AllDataStructues.DesiredStats.Print(RandomStackGenerator.AllDataStructues.DesiredStats,System.Collections.Generic.Dictionary{System.Int32,System.String}@)">
+	<param name="RaceNumberToRaceChar">Преобразует номер расы в ее текстовый идентификатор. Если передать Nothing, то будут печататься номера рас</param>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.units">
+	<summary>
+ Юниты отряда
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.leaderPos">
+	<summary>В какой позиции находится лидер</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.items">
+	<summary>Предметы отряда. GxxxIGxxxx</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.name">
+	<summary>Имя отряда</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.order">
+	<summary>Приказ отряда</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.UnitInfo.level">
+	<summary>Уровень юнита, находящегося в отряде</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.UnitInfo.modificators">
+	<summary>Модификаторы юнита</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.UnitInfo.unit">
+	<summary>Базовые статы юнита</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.UnitInfo.isPreserved">
+	<summary>
+ True, если юнит является сохраненным. У него не будет изменен уровень или модификаторы
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.order">
+	<summary>
+ Приказ, выставляемый в редакторе карт
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.aiOrder">
+	<summary>
+ Хрен его знает
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.Settings.name">
+	<summary>
+ Название приказа. Поле TEXT в LOrder.dbf
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.Settings.target">
+	<summary>
+ Цель приказа, если нужна. Например, для "защищать в локацию" или "защищать отряд"
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.Normal">
+	<summary>
+ Если приналежит играбельной расе под управлением ИИ, то будет ходить по карте, атаковать отряды руины или города, подбирать сундуки и т.д.
+ Если принадлежит нейтралам, то то же, что и "Стоять", но может отступить из боя.
+ Без параметров
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.Stand">
+	<summary>
+ Отряд ничего не делает.
+ Без параметров
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.Guard">
+	<summary>
+ Отряд атакует соседние отряды, находящиеся максимум в одном шаге от него и имеющие приказ, отличный от "Стоять".
+ Отряд будет игнорировать все другие объекты на карте.
+ Без параметров
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.AttackStack">
+	<summary>
+ Отряд будет стремиться уничтожить указанный отряд.
+ Он атакует другой отряд или подберет сундук, если что-то из этого будет преграждать путь.
+ При уничтожении цели приказ сменится на "Берсерк".
+ С параметром
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.DefendStack">
+	<summary>
+ Отряд будет атаковать любой отряд, находящийся максимум в одном шаге от защищаемого отряда.
+ Если возможно, защитник попытается подойти ближе к защищаемому отряду.
+ Он атакует другой отряд или подберет сундук, если что-то из этого будет преграждать путь.
+ При уничтожении охраняемого отряда приказ сменится на "Поход", если защитник нейтральный или на "Нормальный", если отряд приналежит играбельной расе.
+ С параметром
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.SecureCity">
+	<summary>
+ Отряд попытается как можно скорее попасть в город.
+ Он атакует другой отряд или подберет сундук, если что-то из этого будет преграждать путь.
+ Как только отряд доберется до города, он останется в нем.
+ С параметром
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.Roam">
+	<summary>
+ отряд будет искать город, принадлежащий другой субрасе, который может захватить.
+ Исключение - "нейтралы": они могут нападать и на города нейтралов.
+ Без параметров
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.MoveToLocation">
+	<summary>
+ Отряд будет стремиться к указанной локации.
+ Он атакует другой отряд или подберет сундук, если что-то из этого будет преграждать путь.
+ При достижении локации приказ сменится на "Стоять".
+ С параметром
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.DefendLocation">
+	<summary>
+ Отряд будет атаковать врагов, находящихся в охраняемой локации на момент хода отряда.
+ Если не на кого нападать, отряд постарается переместиться в центр локации, при этом
+ он атакует другой отряд или подберет сундук, если что-то из этого будет преграждать путь.
+ С параметром
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.Bezerk">
+	<summary>
+ Отряд будет атаковать любые отряды в поле зрения,
+ включая внешнюю охрану города, но не внутреннюю.
+ Не будет нападать на руины.
+ Не будет подбирать сундуки, пока они не окажутся на пути.
+ Без параметров
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.Assist">
+	<summary>
+ Не знаю, что такое
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.ExploreUnused">
+	<summary>
+ Не знаю, что такое
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.Steal">
+	<summary>
+ Не знаю, что такое
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Stack.StackOrder.OrderType.DefendCity">
+	<summary>
+ Не знаю, что такое
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.UnitBattleNumericValues.hp">
+	<summary>Очки здоровья</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.UnitBattleNumericValues.armor">
+	<summary>Броня</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.UnitBattleNumericValues.damage">
+	<summary>Урон</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.UnitBattleNumericValues.heal">
+	<summary>Восстановление здоровья</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.UnitBattleNumericValues.accuracy">
+	<summary>Точность основной атаки юнита</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.UnitBattleNumericValues.initiative">
+	<summary>Инициатива юнита</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.UnitNumericValues.EXPkilled">
+	<summary>Опыт за убийство юнита</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.UnitNumericValues.EXPnext">
+	<summary>Опыт для апа уровня</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.UnitNumericValues.unitCost">
+	<summary>Цена найма юнита</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.name">
+	<summary>Имя</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.level">
+	<summary>Базовый уровень</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.race">
+	<summary>Номер расы</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.leadership">
+	<summary>Лидерство от 0 до 6</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.reach">
+	<summary>Область атаки.</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.unitID">
+	<summary>GxxxUUxxxx</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.small">
+	<summary>True, если занимает одну клетку</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.waterOnly">
+	<summary>True, если может находиться только на воде</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.unitBranch">
+	<summary>Класс юнита</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.dynUpgradeLevel">
+	<summary>Уровень, до которого статы растут согласно dynUpgr1</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.dynUpgrade1">
+	<summary>Рост статов до dynUpgradeLevel</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.dynUpgrade2">
+	<summary>Рост статов после dynUpgradeLevel</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.useState">
+	<summary>Можно ли использовать юнита. 0 - неизвестно, -1 - нет, 1 - да</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.fromRaceBranch">
+	<summary>True - юнит находится в ветке развития играбельной расы</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.ASourceImmunity">
+	<summary>
+ Защита или иммунитет к источнику атаки.
+ Ключ - источник атаки, значение - тип сопротивления.
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Unit.AClassImmunity">
+	<summary>
+ Защита или иммунитет к типу атаки.
+ Ключ - тип атаки, значение - тип сопротивления.
+ </summary>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Unit.GetExpKilledOverlevel(System.Int32)">
+	<summary>Вернет прибавку к опыту за убийство юнита при получении им оверлевелов</summary>
+	<param name="unitLevel">Текущий уровень юнита</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Unit.GetExpNextOverlevel(System.Int32)">
+	<summary>Вернет прибавку к планке опыта юнита при получении им оверлевелов</summary>
+	<param name="unitLevel">Текущий уровень юнита</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Unit.GetHPOverlevel(System.Int32)">
+	<summary>Вернет прибавку к здоровью юнита при получении им оверлевелов</summary>
+	<param name="unitLevel">Текущий уровень юнита</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Unit.GetArmorOverlevel(System.Int32)">
+	<summary>Вернет прибавку к броне юнита при получении им оверлевелов</summary>
+	<param name="unitLevel">Текущий уровень юнита</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Unit.GetDamageOverlevel(System.Int32)">
+	<summary>Вернет прибавку к броне юнита при получении им оверлевелов</summary>
+	<param name="unitLevel">Текущий уровень юнита</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Unit.GetHealOverlevel(System.Int32)">
+	<summary>Вернет прибавку к броне юнита при получении им оверлевелов</summary>
+	<param name="unitLevel">Текущий уровень юнита</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Unit.GetAccuracyOverlevel(System.Int32)">
+	<summary>Вернет прибавку к броне юнита при получении им оверлевелов</summary>
+	<param name="unitLevel">Текущий уровень юнита</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Unit.GetInitiativeOverlevel(System.Int32)">
+	<summary>Вернет прибавку к броне юнита при получении им оверлевелов</summary>
+	<param name="unitLevel">Текущий уровень юнита</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Unit.GetCostOverlevel(System.Int32)">
+	<summary>Вернет прибавку к стоимости найма юнита при получении им оверлевелов</summary>
+	<param name="unitLevel">Текущий уровень юнита</param>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Cost.Gold">
+	<summary>Золото</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Cost.Blue">
+	<summary>Мана Жизни</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Cost.Red">
+	<summary>Мана Преисподней</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Cost.White">
+	<summary>Мана Рун</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Cost.Black">
+	<summary>Мана Смерти</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Cost.Green">
+	<summary>Мана Лесного Эликсира</summary>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Cost.Read(System.String)">
+	<summary>Парсит строку стоимости в родном для D2 формате. Игнорирует регистр, пробелы и табы. Пропущенные поля интерпретирует как ноль</summary>
+	<param name="costString">g0000:r0000:y0000:e0000:w0000:b0000</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Cost.Print(RandomStackGenerator.AllDataStructues.Cost)">
+	<summary>Печатает стоимость в понятном для игры формате</summary>
+	<param name="v">цена: золото и мана</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Cost.Sum(RandomStackGenerator.AllDataStructues.Cost)">
+	<summary>Вернет суммарную стоимость в золоте и мане</summary>
+	<param name="v">цена: золото и мана</param>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Item.name">
+	<summary>Название</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Item.itemID">
+	<summary>GxxxIGxxxx</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Item.type">
+	<summary>Описание типов в ./Resources/Items.txt</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Item.itemCost">
+	<summary>Цена покупки предмета. При продаже цена в пять раз меньше</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Item.itemCostSum">
+	<summary>Сумма полей itemCost</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Item.useState">
+	<summary>Можно ли использовать предмет. 0 - неизвестно, -1 - нет, 1 - да</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Spell.spellID">
+	<summary>ID заклинания</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Spell.name">
+	<summary>Название заклинания</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Spell.researchCost">
+	<summary>Цена изучения для каждого лорда. Ключ - id лорда в верхнем регистре. Список лордов хранится в Common.LordsRace</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Spell.castCost">
+	<summary>Цена применения</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Spell.level">
+	<summary>Уровень заклинания</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Spell.category">
+	<summary>Тип заклинания</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Spell.area">
+	<summary>Площадь действия заклинания</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Spell.useState">
+	<summary>Можно ли использовать предмет. 0 - неизвестно, -1 - нет, 1 - да</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.LootGenSettings.ConsumableItems">
+	<summary>Cферы, талисманы и свитки</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.LootGenSettings.NonconsumableItems">
+	<summary>Надеваемые предметы и посохи</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.LootGenSettings.JewelItems">
+	<summary>Драгоценности</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.LootGenSettings.PreserveItems">
+	<summary>Добавит эти предметы в любом случае</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.LootGenSettings.addLootAnyway">
+	<summary>Установит стоимость добавляемого лута на 1.2*RandStack.minItemGoldCost, если LootCost меньше RandStack.minItemGoldCost</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.LootGenSettings.lootCostMultiplier">
+	<summary>Множитель цены лута</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.LootGenSettings.typesFilter">
+	<summary>Строгий фильтр по типам</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.LootGenSettings.StrictTypesFilter.typesAmount">
+	<summary>Количество, которое можно добавить по типу</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.LootGenSettings.StrictTypesFilter.typesAmountAdded">
+	<summary>Количество добавленных по типу</summary>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.StrictTypesFilter.SetTypesAmountArray(System.Int32[]@)">
+	<param name="tAmount">Количество предметов каждого типа</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.StrictTypesFilter.Initialize">
+	<summary>Перед использованием в создании предметов вызываем эту процедуру</summary>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.StrictTypesFilter.Filter(RandomStackGenerator.AllDataStructues.Item@)">
+	<summary>Вернет True, если предмет подходит</summary>
+	<param name="item">Предмет</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.StrictTypesFilter.Added(RandomStackGenerator.AllDataStructues.Item@)">
+	<summary>Вызываем, когда предмет добвавлен</summary>
+	<param name="item">Предмет</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.StrictTypesFilter.IncreaseTypeAmount(RandomStackGenerator.AllDataStructues.Item@)">
+	<summary>Вызываем, когда считаем количество предметов в луте</summary>
+	<param name="item">Предмет</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.#ctor(System.Boolean)">
+	<param name="useStrictFilter">Генератор предметов постарается создать предметы заданного типа</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.ToArray(RandomStackGenerator.AllDataStructues.LootGenSettings)">
+	<summary>Return {ConsumableItems,NonconsumableItems,JewelItems}</summary>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.SetTypesAmountArray(System.Int32[]@)">
+	<param name="tAmount">Количество предметов каждого типа</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.Initialize">
+	<summary>Перед использованием в создании предметов вызываем эту процедуру</summary>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.Filter(RandomStackGenerator.AllDataStructues.Item@)">
+	<summary>Вернет True, если предмет подходит</summary>
+	<param name="item">Предмет</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.Added(RandomStackGenerator.AllDataStructues.Item@)">
+	<summary>Вызываем, когда предмет добвавлен</summary>
+	<param name="item">Предмет</param>
+</member><member name="M:RandomStackGenerator.AllDataStructues.LootGenSettings.IncreaseTypeAmount(RandomStackGenerator.AllDataStructues.Item@)">
+	<summary>Вызываем, когда считаем количество предметов в луте</summary>
+	<param name="item">Предмет</param>
+</member><member name="F:RandomStackGenerator.AllDataStructues.ItemGenSettings.exclude">
+	<summary>Не генерировать</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.ItemGenSettings.amount">
+	<summary>Примерное количество. Игнорируется, если меньше 1</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.ItemGenSettings.costPart">
+	<summary>Доля от общей стоимости лута. Игнорируется, если равно 0</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.ItemGenSettings.dynCostPart">
+	<summary>costPart*TotalLootCost</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Restriction.minimum">
+	<summary>Minimum value allowed</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Restriction.maximum">
+	<summary>Maximum value allowed</summary>
+</member><member name="M:RandomStackGenerator.AllDataStructues.Restriction.CheckValue(System.Double@,RandomStackGenerator.AllDataStructues.Restriction@)">
+	<summary>Returns False, if v less than r.minimum or v greater than r.maximum </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.id">
+	<summary>
+ GxxxUMxxxx
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.source">
+	<summary>
+ Тип модификатора.
+ Поле SOURCE в Gmodif
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.effect">
+	<summary>
+ Список эффектов
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.Type.Defence">
+	<summary>
+ L_UNIT
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.Type.LeaderSkill">
+	<summary>
+ L_STACK
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.Type.Offence">
+	<summary>
+ L_ATTACK
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.ModifEffect.type">
+	<summary>
+ Тип модификатора
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.ModifEffect.percent">
+	<summary>
+ Поле PERCENT в GmodifL
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.ModifEffect.number">
+	<summary>
+ Поле NUMBER в GmodifL
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.ModifEffect.ability">
+	<summary>
+ Поле ABILITY в GmodifL
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.ModifEffect.immunASource">
+	<summary>
+ Поле IMMUNITY в GmodifL
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.ModifEffect.immunAClass">
+	<summary>
+ Поле IMMUNITYC в GmodifL
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.ModifEffect.immunASourceCat">
+	<summary>
+ Поле IMMUNECAT в GmodifL
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.ModifEffect.immunAClassCat">
+	<summary>
+ Поле IMMUNECATC в GmodifL
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.Modificator.ModifEffect.move">
+	<summary>
+ Поле Move в GmodifL
+ </summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.CommonCreationSettings.pos">
+	<summary>Точка на карте, в которую добавляются предметы или отряд</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.CommonStackCreationSettings.StackStats">
+	<summary>Желаемые параметры стэка</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.CommonStackCreationSettings.deltaLeadership">
+	<summary>Изменение лидерства за счет модификаторов</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.CommonStackCreationSettings.groundTile">
+	<summary>True, если на клетку нельзя ставить водных лидеров. Водной считается клетка с водой, окруженная со всех сторон клетками с водой</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.CommonStackCreationSettings.noLeader">
+	<summary>True, если стэк находится внутри руин или города</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.CommonStackCreationSettings.isTemplate">
+	<summary>True, если создаем шаблон отряда</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.CommonStackCreationSettings.ownerIsPlayableRaсe">
+	<summary>True, если отряд находится под управлением играбельной расы</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.CommonStackCreationSettings.order">
+	<summary>Приказ отряда</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.CommonLootCreationSettings.GoldCost">
+	<summary>Максимальная стоимость набора в золоте. Драгоценности считаются дешевле в два раза</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.CommonLootCreationSettings.IGen">
+	<summary>Настройки генерации предметов</summary>
+</member><member name="F:RandomStackGenerator.AllDataStructues.CommonLootCreationSettings.TypeCostRestriction">
+	<summary>Ключ - тип предмета, Значение - ограничение стоимости. Игнорируется, если массив неинициализирован</summary>
+</member><member name="M:RandomStackGenerator.ValueConverter.TxtSplit(System.String[]@)">
+	<summary>Разбивает на строки текст по разделителям Chr(10) и Chr(13). Заменяет все табы на пробелы, удаляет повторяющиеся подряд пробелы, удаляет пробелы в начале и конце строки. Не добавляет в выходной массив строки, начинающиеся с #</summary>
+	<param name="TXT">Какой-нибудь текст</param>
+</member><member name="M:RandomStackGenerator.ValueConverter.TxtSplit(System.String@)">
+	<summary>Разбивает на строки текст по разделителям Chr(10) и Chr(13). Заменяет все табы на пробелы, удаляет повторяющиеся подряд пробелы, удаляет пробелы в начале и конце строки. Не добавляет в выходной массив строки, начинающиеся с #</summary>
+	<param name="TXT">Какой-нибудь текст</param>
+</member><member name="M:RandomStackGenerator.ValueConverter.TxtSplit(System.String[]@,System.String@)">
+	<summary>Разбивает на строки текст по разделителям Chr(10) и Chr(13). Заменяет все табы на пробелы, удаляет повторяющиеся подряд пробелы, удаляет пробелы в начале и конце строки. Не добавляет в выходной массив строки, начинающиеся с #</summary>
+	<param name="TXT">Какой-нибудь текст</param>
+	<param name="transferChar">Если строка заканчивается этой подстрокой, то подстрока удаляется, а текущая строка объединяется со следующей</param>
+</member><member name="M:RandomStackGenerator.ValueConverter.TxtSplit(System.String@,System.String@)">
+	<summary>Разбивает на строки текст по разделителям Chr(10) и Chr(13). Заменяет все табы на пробелы, удаляет повторяющиеся подряд пробелы, удаляет пробелы в начале и конце строки. Не добавляет в выходной массив строки, начинающиеся с #</summary>
+	<param name="TXT">Какой-нибудь текст</param>
+	<param name="transferChar">Если строка заканчивается этой подстрокой, то подстрока удаляется, а текущая строка объединяется со следующей</param>
+</member><member name="F:RandomStackGenerator.GenDefaultValues.selectedMod">
+	<summary>Название выбранного мода</summary>
+	<remarks></remarks>
+</member><member name="M:RandomStackGenerator.GenDefaultValues.#ctor(RandomStackGenerator.Log@,System.String)">
+	<param name="log">Лог для записи отчета, можно nothing</param>
+	<param name="modName">Название мода, на котором происходит генерация.
+ Ваианты можно получить из GenDefaultValues.GetSupportedMods.
+ Если передать nothing, то не будет возможности читать настройки из файлов.
+ Список обозначений рас будет взят из MNS</param>
+</member><member name="M:RandomStackGenerator.GenDefaultValues.GetSupportedMods">
+	<summary>Вернет список поддерживаемых модов</summary>
+</member><member name="F:RandomStackGenerator.GenDefaultValues.emptyItem">
+	<summary>Игра использует такую строку для неиспользуемых юнитов, предметов и т.д.</summary>
+</member><member name="F:RandomStackGenerator.GenDefaultValues.MapObjectsText.Lords">
+	<summary>ID лорда, список имен</summary>
+</member><member name="F:RandomStackGenerator.GenDefaultValues.MapObjectsText.Capitals">
+	<summary>ID столицы, список названий</summary>
+</member><member name="F:RandomStackGenerator.GenDefaultValues.MapObjectsText.Cities">
+	<summary>CityID@ID расы, список названий</summary>
+</member><member name="F:RandomStackGenerator.GenDefaultValues.MapObjectsText.Ruins">
+	<summary>ID руин, список названий</summary>
+</member><member name="F:RandomStackGenerator.GenDefaultValues.MapObjectsText.Mages">
+	<summary>ID башни мага, список названий</summary>
+</member><member name="F:RandomStackGenerator.GenDefaultValues.MapObjectsText.Vendors">
+	<summary>ID торговца, список названий</summary>
+</member><member name="F:RandomStackGenerator.GenDefaultValues.MapObjectsText.Mercenaries">
+	<summary>ID торговца, список названий</summary>
+</member><member name="F:RandomStackGenerator.GenDefaultValues.MapObjectsText.Trainers">
+	<summary>ID торговца, список названий</summary>
+</member><member name="F:RandomStackGenerator.GenDefaultValues.MapObjectsText.Descriptions">
+	<summary>ID типа объекта, описание</summary>
+</member><member name="F:RandomStackGenerator.ResoucesReader.selectedMod">
+	<summary>Название выбранного мода</summary>
+	<remarks></remarks>
+</member><member name="M:RandomStackGenerator.ResoucesReader.#ctor(RandomStackGenerator.Log@,System.String)">
+	<param name="log">Лог для записи отчета, можно nothing</param>
+	<param name="modName">Название мода, на котором происходит генерация.
+ Ваианты можно получить из GenDefaultValues.GetSupportedMods</param>
+	<remarks></remarks>
+</member><member name="M:RandomStackGenerator.Log.Enable">
+	<summary>Включить логирование</summary>
+</member><member name="M:RandomStackGenerator.Log.Disable">
+	<summary>Выключить логирование</summary>
+</member><member name="M:RandomStackGenerator.Log.IsEnabled">
+	<summary>Узнать, включено ли логирование</summary>
+</member><member name="M:RandomStackGenerator.Log.Clear">
+	<summary>Очистить лог</summary>
+</member><member name="M:RandomStackGenerator.Log.Size">
+	<summary>Вернет количество записей в логе</summary>
+</member><member name="M:RandomStackGenerator.Log.PrintItem(System.Int32)">
+	<summary>Вернет запись с указанным номером (от 0 до Size-1)</summary>
+</member><member name="M:RandomStackGenerator.Log.PrintAll">
+	<summary>Вернет все записи</summary>
+</member><member name="M:RandomStackGenerator.Log.Add(System.String)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="contString">Строка с записью</param>
+</member><member name="M:RandomStackGenerator.Log.Add(RandomStackGenerator.Log.printWithNoInput@)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="contString">Будет добавлен результат выполнения этой функции</param>
+</member><member name="M:RandomStackGenerator.Log.Add(RandomStackGenerator.AllDataStructues.DesiredStats@)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="contString">Будут добавлены поля этой переменной</param>
+</member><member name="M:RandomStackGenerator.Log.Add(RandomStackGenerator.AllDataStructues.Cost@)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="contString">Будут добавлены поля этой переменной</param>
+</member><member name="M:RandomStackGenerator.Log.Add(RandomStackGenerator.AllDataStructues.LootGenSettings@)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="contString">Будут добавлены поля этой переменной</param>
+</member><member name="M:RandomStackGenerator.Log.Add(RandomStackGenerator.Log.printSelectionList@,RandomStackGenerator.AllDataStructues.Unit[],System.Collections.Generic.List{System.Int32}@)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="contString">Будет добавлен результат выполнения этой функции</param>
+</member><member name="M:RandomStackGenerator.Log.MClear(System.Int32)">
+	<summary>Очистить лог с заданным номером</summary>
+	<param name="LogID">Номер задачи. От 0 до Size-1</param>
+</member><member name="M:RandomStackGenerator.Log.MClear">
+	<summary>Очистить все мультизадачные логи</summary>
+</member><member name="M:RandomStackGenerator.Log.MSize(System.Int32)">
+	<summary>Вернет количество записей в логе</summary>
+	<param name="LogID">Номер задачи. От 0 до Size-1</param>
+</member><member name="M:RandomStackGenerator.Log.MSize">
+	<summary>Вернет количество мультизадачных логов</summary>
+</member><member name="M:RandomStackGenerator.Log.MPrintItem(System.Int32,System.Int32)">
+	<summary>Вернет запись с указанным номером (от 0 до Size-1)</summary>
+	<param name="LogID">Номер задачи. От 0 до Size-1</param>
+</member><member name="M:RandomStackGenerator.Log.MPrintAll(System.Int32)">
+	<summary>Вернет все записи</summary>
+	<param name="LogID">Номер задачи. От 0 до Size-1</param>
+</member><member name="M:RandomStackGenerator.Log.MPrintAll">
+	<summary>Вернет все записи в мультизадачных логах</summary>
+</member><member name="M:RandomStackGenerator.Log.MRedim(System.Int32)">
+	<summary>Создает логи под несколько задач, если логирование включено</summary>
+	<param name="size">Количество задач, больше 0. Если меньше 1 - уничтожит массив</param>
+</member><member name="M:RandomStackGenerator.Log.MAdd(System.Int32,System.String)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="LogID">Номер задачи. От 0 до Size-1</param>
+	<param name="contString">Строка с записью</param>
+</member><member name="M:RandomStackGenerator.Log.MAdd(System.Int32,RandomStackGenerator.Log.printWithNoInput@)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="LogID">Номер задачи. От 0 до Size-1</param>
+	<param name="contString">Будет добавлен результат выполнения этой функции</param>
+</member><member name="M:RandomStackGenerator.Log.MAdd(System.Int32,RandomStackGenerator.AllDataStructues.DesiredStats)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="LogID">Номер задачи. От 0 до Size-1</param>
+	<param name="contString">Будут добавлены поля этой переменной</param>
+</member><member name="M:RandomStackGenerator.Log.MAdd(System.Int32,RandomStackGenerator.AllDataStructues.Cost)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="LogID">Номер задачи. От 0 до Size-1</param>
+	<param name="contString">Будут добавлены поля этой переменной</param>
+</member><member name="M:RandomStackGenerator.Log.MAdd(System.Int32,RandomStackGenerator.AllDataStructues.LootGenSettings@)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="LogID">Номер задачи. От 0 до Size-1</param>
+	<param name="contString">Будут добавлены поля этой переменной</param>
+</member><member name="M:RandomStackGenerator.Log.MAdd(System.Int32,RandomStackGenerator.Log.printSelectionList@,RandomStackGenerator.AllDataStructues.Unit[],System.Collections.Generic.List{System.Int32}@)">
+	<summary>Добавить запись в лог, если логирование включено</summary>
+	<param name="LogID">Номер задачи. От 0 до Size-1</param>
+	<param name="contString">Будет добавлен результат выполнения этой функции</param>
+</member><member name="F:RandomStackGenerator.ClassFieldsHandler.GetFieldResult.searchResultField">
+	<summary>Найденная информация о поле</summary>
+</member><member name="F:RandomStackGenerator.ClassFieldsHandler.GetFieldResult.searchResult">
+	<summary>Экземпляр объекта поля</summary>
+</member><member name="F:RandomStackGenerator.ClassFieldsHandler.GetFieldResult.parents">
+	<summary>Экземпляры цепочки объектов, в последнем из которых содержится искомый объект</summary>
+</member><member name="F:RandomStackGenerator.ClassFieldsHandler.GetFieldResult.throwedExcetion">
+	<summary>Если возникла ошибка, то она будет доступна здесь</summary>
+</member><member name="M:RandomStackGenerator.ClassFieldsHandler.SetFieldValue(System.Object,System.Object,System.String)">
+	<summary>Попытается найти поле в объекте и задать ему значение.</summary>
+	<param name="parent">Обеъкт, в котором ищем поле</param>
+	<param name="fieldValue">Задаваемое значение</param>
+	<param name="fieldName">
+ Имя поля.
+ Через точку можно получить доступ к вложенным объектами.
+ Пример:
+ parent.childA.childB.childC.fieldName</param>
+</member><member name="M:RandomStackGenerator.ClassFieldsHandler.GetFieldValue(System.Object,System.String)">
+	<summary>Попытается найти поле в объекте и получить его значение.</summary>
+	<param name="parent">Обеъкт, в котором ищем поле</param>
+	<param name="fieldName">
+ Имя поля.
+ Через точку можно получить доступ к вложенным объектами.
+ Пример:
+ parent.childA.childB.childC.fieldName</param>
+</member><member name="M:RandomStackGenerator.ClassFieldsHandler.GetField(System.Object,System.String,System.Reflection.BindingFlags)">
+	<summary>Попытается найти поле в объекте и получить его значение.</summary>
+	<param name="parent">Обеъкт, в котором ищем поле</param>
+	<param name="fieldName">
+ Имя поля.
+ Через точку можно получить доступ к вложенным объектами.
+ Пример:
+ parent.childA.childB.childC.fieldName</param>
+	<param name="searchSettings">Настройки поиска</param>
+</member><member name="M:RandomStackGenerator.ClassFieldsHandler.GetFieldsNamesList(System.Object,System.String[]@,System.Reflection.BindingFlags)">
+	<summary>Вернет имена полей в объекте.</summary>
+	<param name="parent">Обеъкт, в котором ищем поля</param>
+	<param name="Ignore">Имена полей, которые не попадут в список. Регистр игнорируется</param>
+	<param name="searchSettings">Настройки поиска</param>
+</member><member name="M:RandomStackGenerator.ClassFieldsHandler.GetFieldsList(System.Object,System.String[]@,System.Reflection.BindingFlags)">
+	<summary>Вернет поля в объекте.</summary>
+	<param name="parent">Обеъкт, в котором ищем поля</param>
+	<param name="Ignore">Имена полей, которые не попадут в список. Регистр игнорируется</param>
+	<param name="searchSettings">Настройки поиска</param>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.Capitals">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#Соответствие между расами, ID рас в игре и ID столиц
+
+    G000FT0000HU0  H G000RR0000
+    G000FT0000DWC0 C G000RR0001
+    G000FT0000HE0  L G000RR0002
+    G000FT0000UN0  U G000RR0003
+    G000FT0000NE0  N G000RR0004
+    G000FT0000EL0  E G000RR0005
+.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.Constants">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#с помощью ReadFromFile 'пробел' 'путь к файлу' можно прочитать данные из другого файла.
+#с помощью RemoveLine 'пробел' 'текст' можно удалить из уже прочтенных данных строки,
+#которые начинаются с заданного текста без учета регистра.
+#файл, определяющий константы, используемые генератором
+#Параметр (без пробелов), значение (без пробелов), разделитель таб или пробел
+#слэш - перенос строки
+
+ReadFromFile .\Resources\mod_settings_MNS\Constants.txt
+
+#Humans [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.emptyloc">
+	<summary>
+  Looks up a localized string similar to 
+//Location					$empty
+
+AppearanceChance	1.0
+
+RaceCities	Nothing
+
+AverageRadius			17
+
+maxEccentricityDispersion	0
+
+maxRadiusDispersion		0
+
+DecorationsAmount		0.75
+
+maxGoldMines			0	0
+maxManaSources			0	0
+maxCities				0
+maxVendors				0
+maxMercenaries			0
+maxMages				0
+maxTrainers				0
+maxRuins				0
+RandomAttendedObject	0
+
+nonMineObjectValueGold	1.0
+nonMineObjectValueMana	0.0
+
+minStackToStackDist		5.0
+
+expAmount			1000
+
+mageSpellsMaxLevel		2
+mageSpellsMinLevel		1
+mageSpellsCo [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.example_template_1">
+	<summary>
+  Looks up a localized string similar to Map generator by Norvezskaya Semga
+
+#строка, начинающаяся с решетки, игнорируется
+#параметры и их значения не чувствительны к регистру
+#разделитель - пробел или табуляция (может идти несколько подряд)
+
+#внутри блоков настройки могут идти в любом порядке
+#порядок блоков тоже может быть любым с одним исключением:
+#блоки Location для расовых локаций должны стоять выше, чем блоки для обычных локаций (независимо от genMode)
+
+#если в блоке Location параметр имеет два значения, то при генерации будет выб [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.example_template_2_symm">
+	<summary>
+  Looks up a localized string similar to Map generator by Norvezskaya Semga
+
+#строка, начинающаяся с решетки, игнорируется
+#параметры и их значения не чувствительны к регистру
+#разделитель - пробел или табуляция (может идти несколько подряд)
+
+#внутри блоков настройки могут идти в любом порядке
+#порядок блоков тоже может быть любым с одним исключением:
+#блоки Location для расовых локаций должны стоять выше, чем блоки для обычных локаций (независимо от genMode)
+
+#если в блоке Location параметр имеет два значения, то при генерации будет выб [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.example_template_2_unsymm">
+	<summary>
+  Looks up a localized string similar to Map generator by Norvezskaya Semga
+
+#строка, начинающаяся с решетки, игнорируется
+#параметры и их значения не чувствительны к регистру
+#разделитель - пробел или табуляция (может идти несколько подряд)
+
+#внутри блоков настройки могут идти в любом порядке
+#порядок блоков тоже может быть любым с одним исключением:
+#блоки Location для расовых локаций должны стоять выше, чем блоки для обычных локаций (независимо от genMode)
+
+#если в блоке Location параметр имеет два значения, то при генерации будет выб [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.example_template_2_unsymm1">
+	<summary>
+  Looks up a localized string similar to Map generator by Norvezskaya Semga
+
+#строка, начинающаяся с решетки, игнорируется
+#параметры и их значения не чувствительны к регистру
+#разделитель - пробел или табуляция (может идти несколько подряд)
+
+#внутри блоков настройки могут идти в любом порядке
+#порядок блоков тоже может быть любым с одним исключением:
+#блоки Location для расовых локаций должны стоять выше, чем блоки для обычных локаций (независимо от genMode)
+
+#если в блоке Location параметр имеет два значения, то при генерации будет выб [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.ExcludeIDsForNames">
+	<summary>
+  Looks up a localized string similar to #волк
+g000uu5039
+g000uu5139
+#псина
+g000uu7533
+g006uu1030
+#снежный волк
+g000uu8296
+g004uu5039
+#белый волк
+g000uu7571
+g001uu7571
+#чумной волк
+g000uu8279
+g001uu8279
+#дух волка
+g000uu8005
+g000uu8105
+#вор
+g000uu0023
+g000uu0048
+g000uu0074
+g000uu0100
+g000uu8013
+g001uu0023
+g001uu0048
+g001uu0074
+g001uu0100
+g001uu8013
+g000uu5300
+g000uu5301
+g000uu5302
+g000uu5303
+g000uu5304
+#головорез
+g000uu5031
+g000uu5131
+#разбойник
+g000uu5030
+g000uu5130
+#крестьянин
+g000uu5001
+g000uu5101
+#тол [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.GenParametersDescription_Eng">
+	<summary>
+  Looks up a localized string similar to %//header Map generator by Norvezskaya Semga/n/n#line starting with hash, is ignored/n#parameters and their values ​​are not case sensitive/n#separator is space or tabulation (can be several consecutive)/n/n#inside blocks can go in any order/n#block order can also be any with one exception:/n#Location blocks for racial locations must be higher than blocks for normal locations (regardless of genMode)/n/n#if the parameter has two values ​​in the Location block, then a random one wil be selected from range/n#e [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.GenParametersDescription_Rus">
+	<summary>
+  Looks up a localized string similar to %//header				 Map generator by Norvezskaya Semga/n/n#строка, начинающаяся с решетки, игнорируется/n#параметры и их значения не чувствительны к регистру/n#разделитель - пробел или табуляция (может идти несколько подряд)/n/n#внутри блоков настройки могут идти в любом порядке/n#порядок блоков тоже может быть любым с одним исключением:/n#блоки Location для расовых локаций должны стоять выше, чем блоки для обычных локаций (независимо от genMode)/n/n#если в блоке Location параметр имеет два значения, то при генер [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.GenParametersRange">
+	<summary>
+  Looks up a localized string similar to 
+ReadFromFile	[Common_map_settings:Location:Nonhideable]	[String] "" ""
+
+genMode	[Creation_settings:Nonhideable]	[Integer]	1	2
+
+nRaces	[Common_map_settings]	[Integer]	2	4
+
+#[Humans;Undead;Legions;Elves;Clans;Random]
+PlayersRaces	[Common_map_settings]	[StringArray]%;	[Nothing]%[H;U;L;E;C]
+
+StartGold	[Common_map_settings]	[Integer]	0	9999
+StartMana	[Common_map_settings]	[Integer]	0	9999
+
+SpellsMaxLevel	[Common_map_settings]	[Integer]	1	5
+
+ApplySymmetry	[Common_map_settings]	[Boolean]	False	True [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.Lords">
+	<summary>
+  Looks up a localized string similar to g000LR0001	H
+g000LR0002	H
+g000LR0003	H
+g000LR0004	C
+g000LR0005	C
+g000LR0006	C
+g000LR0007	L
+g000LR0008	L
+g000LR0009	L
+g000LR0010	U
+g000LR0011	U
+g000LR0012	U
+g000LR0016	E
+g000LR0017	E
+g000LR0018	E
+.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.MapObjectRace">
+	<summary>
+  Looks up a localized string similar to #ЯРПНЙЮ, МЮВХМЮЧЫЮЪЯЪ Я ПЕЬЕРЙХ, ХЦМНПХПСЕРЯЪ
+#Я ОНЛНЫЭЧ ReadFromFile 'ОПНАЕК' 'ОСРЭ Й ТЮИКС' ЛНФМН ОПНВХРЮРЭ ДЮММШЕ ХГ ДПСЦНЦН ТЮИКЮ.
+#Я ОНЛНЫЭЧ RemoveLine 'ОПНАЕК' 'РЕЙЯР' ЛНФМН СДЮКХРЭ ХГ СФЕ ОПНВРЕММШУ ДЮММШУ ЯРПНЙХ,
+#ЙНРНПШЕ МЮВХМЮЧРЯЪ Я ГЮДЮММНЦН РЕЙЯРЮ АЕГ СВЕРЮ ПЕЦХЯРПЮ.
+#оЕПБШИ ЯРНКАЕЖ - ХДЕМРХТХЙЮРНПШ НАЗЕЙРНБ.
+#б НЯРЮКЭМШУ - ДНОСЯРХЛШЕ ЛЕЯРЮ ПЮЯЯРЮМНБЙХ НАЗЕЙРНБ (G - ГЕЛКЪ, W - БНДЮ) Х ПЮЯШ
+# Б РЕЦЕ НАЪГЮРЕКЕМ ГМЮЙ %
+
+#ГДЮМХЪ
+g000mg0001	G	H C E N S		%religious% %natural%
+g000mg0002	G	C	 [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.mineTypeGold">
+	<summary>
+  Looks up a localized string similar to gold.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.mineTypeRandomMana">
+	<summary>
+  Looks up a localized string similar to randmana.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.mineTypeT1Mana">
+	<summary>
+  Looks up a localized string similar to t1mana.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.mineTypeT3Mana">
+	<summary>
+  Looks up a localized string similar to t3mana.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.modSettings_keyword">
+	<summary>
+  Looks up a localized string similar to mod_settings_.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.ObjectsText_Eng">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#с помощью ReadFromFile 'пробел' 'путь к файлу' можно прочитать данные из другого файла.
+#с помощью RemoveLine 'пробел' 'текст' можно удалить из уже прочтенных данных строки,
+#которые начинаются с заданного текста без учета регистра.
+#ID объекта, в остальных столбцах возможные названия
+#разделитель - _
+
+#лорды Humans Clans Legions Undead Elvens (имена доллжны походить как девочкам, так и мальчикам. За исключением Кланов)
+g000LR0001_Алексис_Лотай_Келли_Мо [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.ObjectsText_Rus">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#с помощью ReadFromFile 'пробел' 'путь к файлу' можно прочитать данные из другого файла.
+#с помощью RemoveLine 'пробел' 'текст' можно удалить из уже прочтенных данных строки,
+#которые начинаются с заданного текста без учета регистра.
+#ID объекта, в остальных столбцах возможные названия
+#разделитель - _
+
+ReadFromFile .\Resources\mod_settings_Vanilla\ObjectsText_Rus.txt
+
+#руины (названия такие, чтобы можно было их использовать безотносительно того, кто си [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.objKeyMage">
+	<summary>
+  Looks up a localized string similar to G000SI0000MAGE.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.objKeyMercenaries">
+	<summary>
+  Looks up a localized string similar to G000SI0000MERC.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.objKeyMerchant">
+	<summary>
+  Looks up a localized string similar to G000SI0000MERH.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.objKeyMountain">
+	<summary>
+  Looks up a localized string similar to MOMNE.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.objKeyRuin">
+	<summary>
+  Looks up a localized string similar to G000RU.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.objKeyTown">
+	<summary>
+  Looks up a localized string similar to G000FT0000.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.objKeyTrainer">
+	<summary>
+  Looks up a localized string similar to G000SI0000TRAI.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.PlateauConstructor">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#с помощью ReadFromFile 'пробел' 'путь к файлу' можно прочитать данные из другого файла.
+#с помощью RemoveLine 'пробел' 'текст' можно удалить из уже прочтенных данных строки,
+#которые начинаются с заданного текста без учета регистра.
+#Первый столбец - идентификаторы объектов.
+#В остальных - как скреплять объекты
+#U = 1/-1 1/0
+#D = 1/2 1/3
+#L = -1/1 0/1
+#R = 2/1 3/1
+#B - должна быть граница карты (указывается только одна точка, которая не находится в уг [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.PlayableSubraces">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#Список играбельных субрас
+ 
+#империя
+1
+#нежить
+2
+#легионы
+3
+#кланы
+4
+#эльфы
+14
+.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.PreservedObjects">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#с помощью ReadFromFile 'пробел' 'путь к файлу' можно прочитать данные из другого файла.
+#с помощью RemoveLine 'пробел' 'текст' можно удалить из уже прочтенных данных строки,
+#которые начинаются с заданного текста без учета регистра.
+#ID предметов, юнитов и заклинаний, которые генератор должен оставлять на месте в отрядах, сундуках и у торговцев
+
+#ПРЕДМЕТЫ
+
+#Ржавые кандалы
+G000IG2007
+
+#Лютня очарования
+G000IG3022
+
+#Тиара чистоты
+G000IG2006
+
+#Кни [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.Races">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#с помощью ReadFromFile 'пробел' 'путь к файлу' можно прочитать данные из другого файла.
+#с помощью RemoveLine 'пробел' 'текст' можно удалить из уже прочтенных данных строки,
+#которые начинаются с заданного текста без учета регистра.
+#Идентификаторы рас.
+#В конце каждой строки ID, на который будут заменяться все остальные ID строки
+
+Humans			H	6	1
+Undead			U	2
+Legions			L	3
+Clans			C	K	4
+Elves			E	7	14
+Neutral			N	5
+Greenskins		G	O	8
+Dragons			D	9
+ [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.RaceSublocations">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#с помощью ReadFromFile 'пробел' 'путь к файлу' можно прочитать данные из другого файла.
+#с помощью RemoveLine 'пробел' 'текст' можно удалить из уже прочтенных данных строки,
+#которые начинаются с заданного текста без учета регистра.
+#Идентификаторы рас. список возможных тэгов, через : - радиус подзоны
+# в теге обязателен знак %
+
+H %natural%:4 %building%:4 %religious%:3 %marshes%:3 %graveyard%:2 %empbuilding%:4
+L %natural%:4 %building%:4 
+C %natural%:4  [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.remove_keyword">
+	<summary>
+  Looks up a localized string similar to RemoveLine.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.spellRandomRace">
+	<summary>
+  Looks up a localized string similar to R.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.template_48x48_unsymm_simple">
+	<summary>
+  Looks up a localized string similar to Map generator by Norvezskaya Semga
+
+#строка, начинающаяся с решетки, игнорируется
+#параметры и их значения не чувствительны к регистру
+#разделитель - пробел или табуляция (может идти несколько подряд)
+
+#внутри блоков настройки могут идти в любом порядке
+#порядок блоков тоже может быть любым с одним исключением:
+#блоки Location для расовых локаций должны стоять выше, чем блоки для обычных локаций (независимо от genMode)
+
+#если в блоке Location параметр имеет два значения, то при генерации будет выб [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.template_creation">
+	<summary>
+  Looks up a localized string similar to Creation_settings.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.template_header_keyword">
+	<summary>
+  Looks up a localized string similar to header.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.template_location">
+	<summary>
+  Looks up a localized string similar to Location.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.template_map">
+	<summary>
+  Looks up a localized string similar to Common_map_settings.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.template_new_Block">
+	<summary>
+  Looks up a localized string similar to //.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.template_RandomRaceLongKeyword">
+	<summary>
+  Looks up a localized string similar to Random.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.template_RandomRaceShortKeyword">
+	<summary>
+  Looks up a localized string similar to R.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.template_read_from_file">
+	<summary>
+  Looks up a localized string similar to ReadFromFile.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.testFileKeyword">
+	<summary>
+  Looks up a localized string similar to %testfile%.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.WaterBlocks3x3Objects">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#Блоки, из которых будет строиться водное покрытие.
+#Как строить: расставляем символы G (земля) и W (вода) прямоугольником или квадратом любого размера.
+#чтобы разделить блоки между собой, добавляем строчку "_"
+#К блокам будет применен поворот и отражение, чтобы не делать руками список из по сути одинаковых блоков.
+#Например:
+# GGW   WWW    WW
+# WWW , GGW  и WG можно считать одинаковыми
+#              WG
+#Делать блок нужно с учетом того, что объект буде [rest of string was truncated]";.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.WaterBlocksCommon">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#Блоки, из которых будет строиться водное покрытие.
+#Как строить: расставляем символы G (земля) и W (вода) прямоугольником или квадратом любого размера.
+#чтобы разделить блоки между собой, добавляем строчку "_"
+#К блокам будет применен поворот и отражение, чтобы не делать руками список из по сути одинаковых блоков.
+#Например:
+# GGW   WWW    WW
+# WWW , GGW  и WG можно считать одинаковыми
+#              WG
+
+WW
+WW
+_
+
+WWG
+WWW
+_
+
+WWG
+WGW
+_
+.
+</summary>
+</member><member name="P:RandomStackGenerator.My.Resources.Resources.WaterBlocksUnacceptable">
+	<summary>
+  Looks up a localized string similar to #строка, начинающаяся с решетки, игнорируется
+#Блоки, которые не должны встречаться на карте.
+#Как строить: расставляем символы G (земля) и W (вода) прямоугольником или квадратом любого размера.
+#чтобы разделить блоки между собой, добавляем строчку "_"
+#К блокам будет применен поворот и отражение, чтобы не делать руками список из по сути одинаковых блоков.
+#Например:
+# GGW   WWW    WW
+# WWW , GGW  и WG можно считать одинаковыми
+#              WG
+
+GG
+WW
+GG
+_
+
+GGW
+GWG
+WGG
+_
+
+WWW
+GGG
+_.
+</summary>
+</member><member name="T:RandomStackGenerator.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.reloadMe">
+	<summary>Нжно ли обновить список блоков</summary>
+</member><member name="M:RandomStackGenerator.TemplateForge.AddLocation">
+	<summary>Добавит новую локацию. Вернет название локации</summary>
+</member><member name="M:RandomStackGenerator.TemplateForge.GetBlockIndex(System.String@,System.Boolean@)">
+	<summary>Вернет индекс блока по его имени</summary>
+	<param name="name">Имя блока. Регистр игнорируется</param>
+	<param name="riseExceptionIfNotFound">Выдать ошибку, если такой локации нет</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.SetValue(System.String@,System.String@,System.String@)">
+	<summary>Установит для параметра в заданном блоке новое значение</summary>
+	<param name="blockName">Название блока</param>
+	<param name="valueName">Название параметра</param>
+	<param name="newValue">Новое значение</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.SetValue(System.Int32@,System.String@,System.String@)">
+	<summary>Установит для параметра в заданном блоке новое значение</summary>
+	<param name="blockIndex">Индекс блока</param>
+	<param name="valueName">Название параметра</param>
+	<param name="newValue">Новое значение</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.SetValue(System.String@,System.String@,System.String@,System.String@)">
+	<summary>Установит для параметра в заданном блоке новое значение</summary>
+	<param name="blockName">Название блока</param>
+	<param name="newvalueLowerBound">При создании карты генератор может рандомить параметры локаций. Это минимальное значение при рандомизации</param>&gt;
+ <param name="newvalueUpperBound">При создании карты генератор может рандомить параметры локаций. Это максимальное значение при рандомизации</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.SetValue(System.Int32@,System.String@,System.String@,System.String@)">
+	<summary>Установит для параметра в заданном блоке новое значение</summary>
+	<param name="blockIndex">Индекс блока</param>
+	<param name="newvalueLowerBound">При создании карты генератор может рандомить параметры локаций. Это минимальное значение при рандомизации</param>&gt;
+ <param name="newvalueUpperBound">При создании карты генератор может рандомить параметры локаций. Это максимальное значение при рандомизации</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.SetHideValueState(System.String@,System.String@,System.Boolean@)">
+	<summary>Показать или скрыть параметр</summary>
+	<param name="blockName">Название блока</param>
+	<param name="valueName">Название параметра</param>
+	<param name="newState">True, если скрыть</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.SetHideValueState(System.Int32@,System.String@,System.Boolean@)">
+	<summary>Показать или скрыть параметр</summary>
+	<param name="blockIndex">Индекс блока</param>
+	<param name="valueName">Название параметра</param>
+	<param name="newState">True, если скрыть</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.RemoveBlock(System.String@)">
+	<summary>Удалит локацию. Изменит названия локаций, которые находились ниже</summary>
+	<param name="name">Название блона с локацией</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.RemoveBlock(System.Int32@)">
+	<summary>Удалит локацию. Изменит названия локаций, которые находились ниже</summary>
+	<param name="index">Индекс блона с локацией</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.MoveUpBlock(System.String@)">
+	<summary>Переместит блок выше по списку. Вернет False, если блок уже был наверху списка</summary>
+	<param name="name">Имя блока</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.MoveUpBlock(System.Int32@)">
+	<summary>Переместит блок выше по списку. Вернет False, если блок уже был наверху списка</summary>
+	<param name="index">Индекс блока</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.MoveDownBlock(System.String@)">
+	<summary>Переместит блок ниже по списку. Вернет False, если блок уже был внизу списка</summary>
+	<param name="name">Имя блока</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.MoveDownBlock(System.Int32@)">
+	<summary>Переместит блок ниже по списку. Вернет False, если блок уже был внизу списка</summary>
+	<param name="index">Индекс блока</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.ReadTemplateFile(System.String@,System.String@)">
+	<summary>Прочитает шаблон из файла</summary>
+	<param name="templatesFolder">Папка с шаблонами</param>
+	<param name="fileName">Имя файла</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.ReadCreationSettingsFromFile(System.String@,System.String@)">
+	<summary>Прочитает блок Creation_settings из файла</summary>
+	<param name="templatesFolder">Папка с шаблонами</param>
+	<param name="fileName">Имя файла</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.ReadCommonMapSettingsFromFile(System.String@,System.String@)">
+	<summary>Прочитает блок Common_map_settings карты из файла</summary>
+	<param name="templatesFolder">Папка с шаблонами</param>
+	<param name="fileName">Имя файла</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.ReadLocationFromFile(System.String@,System.String@,System.String@)">
+	<summary>Прочитает блок Location из файла. Вернет Nothing, если не найдет блок</summary>
+	<param name="templatesFolder">Папка с шаблонами</param>
+	<param name="fileName">Метка блока</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.ReadAllLocationFromFile(System.String@,System.String@)">
+	<summary>Прочитает все блоки Location из файла</summary>
+	<param name="templatesFolder">Папка с шаблонами</param>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.name">
+	<summary>Название параметра</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.description">
+	<summary>Описание параметра</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.type">
+	<summary>Тип значения</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.minValue">
+	<summary>Минимальное значение, если это не массив</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.maxValue">
+	<summary>Максимальное значение, если это не массив</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.possibleArrayValues">
+	<summary>Возможные наборы параметров, если тип значения - массив. Можно выбирать только из одного наборы.
+ Например: если что-то выбрано из possibleArrayValues(0), то нельзя брать из possibleArrayValues(1)</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.arrayDelimiter">
+	<summary>Разделитель значений в случае, если параметр является массивом</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.valueLowerBound">
+	<summary>При создании карты генератор может рандомить параметры локаций. Это минимальное значение при рандомизации</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.valueUpperBound">
+	<summary>При создании карты генератор может рандомить параметры локаций. Это максимальное значение при рандомизации</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.valueRandomization">
+	<summary>True, если при создании карты генератор будет рандомить этот параметр от valueLowerBound до valueUpperBound</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.hidden">
+	<summary>Скрывать параметр и не сохранять его в файл</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.hideable">
+	<summary>Можно ли скрыть параметр и не сохранять его в файл</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.blockName">
+	<summary>Базовые названия блоков, в которых может находиться параметр</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.Parameter.showCondition">
+	<summary>Условие, при котором параметр должен быть виден</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.OptionsStorage.hidden">
+	<summary>Скрывать блок и не сохранять его в файл</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.OptionsStorage.canBeDeleted">
+	<summary>Можно ли удалить блок</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.OptionsStorage.reloadMe">
+	<summary>Нуждаются ли данные блока в обновлении в интерфейсе</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.OptionsStorage.name">
+	<summary>Название блока</summary>
+</member><member name="F:RandomStackGenerator.TemplateForge.OptionsStorage.customBlockID">
+	<summary>Кастомный идентификатор блока. Без пробелов и табов. Опционально</summary>
+</member><member name="M:RandomStackGenerator.TemplateForge.OptionsStorage.SetCustomBlockID(System.String)">
+	<summary>Задать идентификатор блока. Опционально</summary>
+	<param name="v">Идентификатр без пробелов и табов.</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.OptionsStorage.GetCustomBlockID">
+	<summary>Получить идентификатор блока</summary>
+</member><member name="M:RandomStackGenerator.TemplateForge.OptionsStorage.SetOptionHideState(System.String,System.Boolean@,RandomStackGenerator.TemplateForge.OptionsStorage.HideChangedHandler@)">
+	<summary>Показать или скрыть параметр</summary>
+	<param name="vName">Имя параметра. Регистр игнорируется</param>
+	<param name="newState">True, если скрыть</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.OptionsStorage.OptionIndex(System.String,System.Boolean@)">
+	<summary>Вернет индекс параметра по его имени</summary>
+	<param name="vName">Имя параметра. Регистр игнорируется</param>
+	<param name="riseExceptionIfNotFound">Выдать ошибку, если такого параметра нет</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.OptionsStorage.OptionsCount">
+	<summary>Количество параметров</summary>
+</member><member name="M:RandomStackGenerator.TemplateForge.OptionsStorage.SetOptionValue(System.String,System.String,RandomStackGenerator.TemplateForge.OptionsStorage.ValueChangedHandler@)">
+	<summary>Установит значение параметра</summary>
+	<param name="vName">Имя параметра. Регистр игнорируется</param>
+	<param name="value">Значение</param>
+	<param name="h">Вызовет эту процедуру после изменения значния</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.OptionsStorage.SetOptionValue(System.String,System.String,System.String,RandomStackGenerator.TemplateForge.OptionsStorage.ValueChangedHandler@)">
+	<summary>Установит значение параметра</summary>
+	<param name="vName">Имя параметра. Регистр игнорируется</param>
+	<param name="valueLowerBound">При создании карты генератор может рандомить параметры локаций. Это минимальное значение при рандомизации</param>&gt;
+ <param name="valueUpperBound">При создании карты генератор может рандомить параметры локаций. Это максимальное значение при рандомизации</param>
+	<param name="h">Вызовет эту процедуру после изменения значния</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.OptionsStorage.GetOption(System.Int32)">
+	<summary>Вернет параметр по индексу</summary>
+	<param name="index">Индекс</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.OptionsStorage.GetOption(System.String)">
+	<summary>Вернет параметр по имени</summary>
+	<param name="vName">Имя параметра</param>
+</member><member name="M:RandomStackGenerator.TemplateForge.OptionsStorage.AddOption(RandomStackGenerator.TemplateForge.Parameter)">
+	<summary>Добавит параметр в конец списка</summary>
+	<param name="value">Параметр</param>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.PrepareToRaceLocGenResult.IminimumDist">
+	<summary>Минимальное расстояние^2</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.GenSettings.genModes.simple">
+	<summary>Будет использован блок Map.SettingsLoc и два блока Map.SettingsLoc - для стартовых и всех остальных локаций, соответственно</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.GenSettings.genModes.template">
+	<summary>Будет использован блок Map.SettingsLoc и все блоки Map.SettingsLoc - для каждой локации индивидуальные настройки</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.GenSettings.genMode">
+	<summary>Режим генерации, см. genModes</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.GenSettings.LocationGenSetting.posX">
+	<summary>Координата локации на карте по X (число будет умножена на размер карты по X)</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.GenSettings.LocationGenSetting.posY">
+	<summary>Координата локации на карте по Y (число будет умножена на размер карты по Y)</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.GenSettings.LocationGenSetting.AppearanceChance">
+	<summary>Шанс на то, что локация появится. От 0 до 1</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.GenSettings.LocationGenSetting.minValues">
+	<summary>Минимальные значения для параметров локации</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.GenSettings.LocationGenSetting.maxValues">
+	<summary>Максимальные значения для параметров локации</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.GenSettings.LocationGenSetting.ValueRange.min">
+	<summary>Минимальное значение</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.GenSettings.LocationGenSetting.ValueRange.max">
+	<summary>Максимальное значение</summary>
+</member><member name="M:RandomStackGenerator.ImpenetrableMeshGen.GenMap(RandomStackGenerator.ImpenetrableMeshGen.GenSettings@,System.Int32@,RandomStackGenerator.Log@)">
+	<summary>Генерирует заготовку ландшафта</summary>
+	<param name="maxGenTime">Максимальное время на операцию расстановки объектов.
+ Она обычно производится меньше чем за пару секунд, но бывает, что выполняется дольше минуты.
+ В этом случае быстрее перегенерировать карту.
+ Если не получится с пяти попыток, вернет Nothing</param>
+</member><member name="M:RandomStackGenerator.ImpenetrableMeshGen.SetLocIdToCells(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap)">
+	<summary>В зависимости от расположения и параметров локаций присвоит тайлам ID локаци</summary>
+	<param name="m">Хранилище данных о карте. К этому моменту должны быть 
+ присвоены значения переменным .xSize и .ySize (например, для карты 96x48 значения 95 и 47, соответственно)
+ присвоено значение для symmID - ID примененной операции симметрии (см. класс SymmetryOperations) (-1 - без симметрии)
+ инициализирован массив .Loc(from 0 to "количество локаций-1").
+ .Loc() - внутри инициализированные локации</param>
+	<param name="settMap">Общие настройки для карты</param>
+</member><member name="M:RandomStackGenerator.ImpenetrableMeshGen.SetBorders(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap,RandomStackGenerator.Map.SettingsLoc[]@,RandomStackGenerator.TerminationCondition@)">
+	<summary>Выполняется после SetLocIdToCells. В зависимости от того, какие ID локаци присвоены тайлам, расставит проходы стенки между локациями</summary>
+	<param name="m">Хранилище данных о карте. К этому моменту должны быть 
+ присвоены значения переменным .xSize и .ySize (например, для карты 96x48 значения 95 и 47, соответственно)
+ присвоено значение для symmID - ID примененной операции симметрии (см. класс SymmetryOperations) (-1 - без симметрии)
+ инициализированы массивы.
+ .Loc(from 0 to "количество локаций-1") и .board(from 0 to xSize, from 0 to ySize).
+ .Loc() - внутри инициализированные локации.
+ .board(,).LocID - как минимум одно значение (можно больше, если по соседству с тайлом есть тайлы других локаций (но тот, что первый в списке - основной)</param>
+	<param name="settMap">Общие настройки для карты</param>
+	<param name="Term">Нужно инициализировать экземпляр этого класса до начала генерации</param>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.ActiveObjectsPlacer.ObjectPlacingSettings.objectType">
+	<summary>Тип объекта</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.ActiveObjectsPlacer.ObjectPlacingSettings.placeNearWith">
+	<summary>Рядом с каким объектом разместить этот объект</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.ActiveObjectsPlacer.ObjectPlacingSettings.prefferedDistance">
+	<summary>Растояние от объекта placeNearWith, на котором скорее всего окажется размещаемый объект</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.ActiveObjectsPlacer.ObjectPlacingSettings.sigma">
+	<summary>Чем меньше сигма, тем строже требование по расстоянию</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableMeshGen.ActiveObjectsPlacer.ObjectPlacingSettings.applyUniformity">
+	<summary>Даже при заданном расстоянии от объекта стараться расположить объект с учетом других</summary>
+</member><member name="M:RandomStackGenerator.ImpenetrableMeshGen.PlaceActiveObjects(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap,RandomStackGenerator.Map.SettingsLoc@,RandomStackGenerator.Map.SettingsLoc,RandomStackGenerator.TerminationCondition@)">
+	<summary>Выполняется после SetBorders. Расставит посещаемые объекты</summary>
+	<param name="m">Хранилище данных о карте. К этому моменту должны быть 
+ присвоены значения переменным .xSize и .ySize (например, для карты 96x48 значения 95 и 47, соответственно)
+ присвоено значение для symmID - ID примененной операции симметрии (см. класс SymmetryOperations) (-1 - без симметрии)
+ инициализированы массивы.
+ .Loc(from 0 to "количество локаций-1") и .board(from 0 to xSize, from 0 to ySize).
+ .Loc() - внутри инициализированные локации.
+ .board(,).LocID - как минимум одно значение (можно больше, если по соседству с тайлом есть тайлы других локаций (но тот, что первый в списке - основной).
+ Непроходимые тайлы на границе локаций (внутри локаций следует их добавлять уже после расстановки посещаемых объектов) - .board(,).passability.isBorder = True;
+ Для тайлов, являющихся проходом между локациями - .board(,).passability.isPass = True;
+ остальные записи в board(,) могут быть пустыми, неинициализированными и всё такое.</param>
+	<param name="settMap">Общие настройки для карты</param>
+	<param name="settRaceLoc">Настройки для стартовых локаций играбельных рас.
+ Дробная часть определяет шанс округления большую сторону</param>
+	<param name="settCommLoc">Настройки для остальных локаций. 
+ Значение количества объектов для каждой локации будет умножаться на отношение площади локации к площади средней локации (Pi*AverageRadius^2).
+ Дробная часть определяет шанс округления в большую сторону. В случае округления вниз дробная часть добавляется к максимальному количеству шахт</param>
+	<param name="Term">Нужно инициализировать экземпляр этого класса до начала генерации</param>
+</member><member name="M:RandomStackGenerator.ImpenetrableMeshGen.PlaceActiveObjects(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap,RandomStackGenerator.Map.SettingsLoc[],RandomStackGenerator.TerminationCondition@)">
+	<summary>Расставит посещаемые объекты</summary>
+	<param name="m">Хранилище данных о карте. К этому моменту должны быть 
+ присвоены значения переменным .xSize и .ySize (например, для карты 96x48 значения 95 и 47, соответственно)
+ присвоено значение для symmID - ID примененной операции симметрии (см. класс SymmetryOperations) (-1 - без симметрии)
+ инициализированы массивы.
+ .Loc(from 0 to "количество локаций-1") и .board(from 0 to xSize, from 0 to ySize).
+ .Loc() - внутри инициализированные локации (первыми должны идти стартовые локации рас).
+ .board(,).LocID - как минимум одно значение (можно больше, если по соседству с тайлом есть тайлы других локаций (но тот, что первый в списке - основной).
+ Непроходимые тайлы на границе локаций (внутри локаций следует их добавлять уже после расстановки посещаемых объектов) - .board(,).passability.isBorder = True;
+ Для тайлов, являющихся проходом между локациями - .board(,).passability.isPass = True;
+ остальные записи в board(,) могут быть пустыми, неинициализированными и всё такое.</param>
+	<param name="settMap">Общие настройки для карты</param>
+	<param name="settLoc">Настройки для каждой локации. Первыми должны идти стартовые локации рас.
+ Коментарий к настройкам стартовых локаций играбельных рас:
+ дробная часть определяет шанс округления большую сторону.
+ Комментарий к настройкам остальных локаций:
+ Значение количества объектов для каждой локации будет умножаться на отношение площади локации к площади, заданной в настройках (Pi*AverageRadius^2).
+ Дробная часть определяет шанс округления в большую сторону. В случае округления вниз дробная часть добавляется к максимальному количеству шахт </param>
+	<param name="Term">Нужно инициализировать экземпляр этого класса до начала генерации</param>
+</member><member name="M:RandomStackGenerator.ImpenetrableMeshGen.MakeLabyrinth(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap,RandomStackGenerator.Map.SettingsLoc[],RandomStackGenerator.TerminationCondition@)">
+	<summary>Запускаем сразу после PlaceActiveObjects. После выполнения идем как в примере</summary>
+</member><member name="F:RandomStackGenerator.SymmetryOperations.TwoPlayersSymmetryModes.L2">
+	<summary>Поворот на 180 градусов вокруг оси, находящейся в центре карты</summary>
+</member><member name="F:RandomStackGenerator.SymmetryOperations.TwoPlayersSymmetryModes.xM">
+	<summary>Отражение в плоскости, параллельной оси Ox, и проходящей через центр карты</summary>
+</member><member name="F:RandomStackGenerator.SymmetryOperations.TwoPlayersSymmetryModes.yM">
+	<summary>Отражение в плоскости, параллельной оси Oy, и проходящей через центр карты</summary>
+</member><member name="F:RandomStackGenerator.SymmetryOperations.TwoPlayersSymmetryModes.xy1M">
+	<summary>Отражение в плоскости, параллельной диагонали {x, y}, и проходящей через центр карты. Только для квадратных карт</summary>
+</member><member name="F:RandomStackGenerator.SymmetryOperations.TwoPlayersSymmetryModes.xy2M">
+	<summary>Отражение в плоскости, параллельной диагонали {-x, y}, и проходящей через центр карты. Только для квадратных карт</summary>
+</member><member name="F:RandomStackGenerator.SymmetryOperations.FourPlayersSymmetryModes.L4">
+	<summary>Поворот на 90 градусов вокруг оси, находящейся в центре карты</summary>
+</member><member name="F:RandomStackGenerator.SymmetryOperations.FourPlayersSymmetryModes.xMyM">
+	<summary>Отражение в плоскостях, параллельных осям Ox и Oy, и проходящих через центр карты</summary>
+</member><member name="F:RandomStackGenerator.SymmetryOperations.FourPlayersSymmetryModes.xy1Mxy2M">
+	<summary>Отражение в плоскостях, параллельных диагонали {x, y} и {-x, y}, и проходящих через центр карты. Только для квадратных карт</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.L2(RandomStackGenerator.Point@,System.Int32@,System.Int32@)">
+	<summary>Возвращает точку, повернутую на 180 градусов вокруг оси, находящейся в центре карты</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.L2(RandomStackGenerator.Point@,RandomStackGenerator.Map@)">
+	<summary>Возвращает точку, повернутую на 180 градусов вокруг оси, находящейся в центре карты</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.L2(RandomStackGenerator.Location@,RandomStackGenerator.Map@)">
+	<summary>Возвращает локацию, повернутую на 180 градусов вокруг оси, находящейся в центре карты</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.L4(RandomStackGenerator.Point@,System.Int32@)">
+	<summary>Возвращает точку, повернутую на 90 градусов вокруг оси, находящейся в центре карты. Только для квадратных карт</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.L4(RandomStackGenerator.Point@,RandomStackGenerator.Map@)">
+	<summary>Возвращает точку, повернутую на 90 градусов вокруг оси, находящейся в центре карты. Только для квадратных карт</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.L4(RandomStackGenerator.Location@,RandomStackGenerator.Map@)">
+	<summary>Возвращает локацию, повернутую на 90 градусов вокруг оси, находящейся в центре карты. Только для квадратных карт</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.xM(RandomStackGenerator.Point@,System.Int32@,System.Int32@)">
+	<summary>Возвращает точку, отраженную в плоскости, параллельной оси Ox, и проходящей через центр карты</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.xM(RandomStackGenerator.Point@,RandomStackGenerator.Map@)">
+	<summary>Возвращает точку, отраженную в плоскости, параллельной оси Ox, и проходящей через центр карты</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.xM(RandomStackGenerator.Location@,RandomStackGenerator.Map@)">
+	<summary>Возвращает локацию, отраженную в плоскости, параллельной оси Ox, и проходящей через центр карты</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.yM(RandomStackGenerator.Point@,System.Int32@,System.Int32@)">
+	<summary>Возвращает точку, отраженную в плоскости, параллельной оси Oy, и проходящей через центр карты</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.yM(RandomStackGenerator.Point@,RandomStackGenerator.Map@)">
+	<summary>Возвращает точку, отраженную в плоскости, параллельной оси Oy, и проходящей через центр карты</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.yM(RandomStackGenerator.Location@,RandomStackGenerator.Map@)">
+	<summary>Возвращает локацию, отраженную в плоскости, параллельной оси Oy, и проходящей через центр карты</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.xy1M(RandomStackGenerator.Point@)">
+	<summary>Возвращает точку, отраженную в плоскости, параллельной диагонали {x, y}, и проходящей через центр карты. Только для квадратных карт</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.xy1M(RandomStackGenerator.Point@,RandomStackGenerator.Map@)">
+	<summary>Возвращает точку, отраженную в плоскости, параллельной диагонали {x, y}, и проходящей через центр карты. Только для квадратных карт</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.xy1M(RandomStackGenerator.Location@,RandomStackGenerator.Map@)">
+	<summary>Возвращает локацию, отраженную в плоскости, параллельной диагонали {x, y}, и проходящей через центр карты. Только для квадратных карт</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.xy2M(RandomStackGenerator.Point@,System.Int32@)">
+	<summary>Возвращает точку, отраженную в плоскости, параллельной диагонали {-x, y}, и проходящей через центр карты. Только для квадратных карт</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.xy2M(RandomStackGenerator.Point@,RandomStackGenerator.Map@)">
+	<summary>Возвращает точку, отраженную в плоскости, параллельной диагонали {-x, y}, и проходящей через центр карты. Только для квадратных карт</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.xy2M(RandomStackGenerator.Location@,RandomStackGenerator.Map@)">
+	<summary>Возвращает локация, отраженную в плоскости, параллельной диагонали {-x, y}, и проходящей через центр карты. Только для квадратных карт</summary>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.TwoPlayersSymm(RandomStackGenerator.Point@,RandomStackGenerator.Map@,System.Int32@,System.Int32@)">
+	<summary>Применяет одну из операций симметрии, разрешенную для двух игроков</summary>
+	<param name="ID">id операции</param>
+	<param name="minSqDist">Квадрат минимального расстояния. Если расстояние меньше, возвращает среднюю точку</param>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.TwoPlayersSymm(RandomStackGenerator.Location@,RandomStackGenerator.Map@,System.Int32@,System.Int32@)">
+	<summary>Применяет одну из операций симметрии, разрешенную для двух игроков</summary>
+	<param name="ID">id операции</param>
+	<param name="minSqDist">Квадрат минимального расстояния. Если расстояние меньше, возвращает среднюю точку</param>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.FourPlayersSymm(RandomStackGenerator.Point@,RandomStackGenerator.Map@,System.Int32@)">
+	<summary>Применяет одну из операций симметрии, разрешенную для четырех игроков</summary>
+	<param name="minSqDist">Квадрат минимального расстояния. Если расстояние меньше, возвращает среднюю точку</param>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.FourPlayersSymm(RandomStackGenerator.Location@,RandomStackGenerator.Map@,System.Int32@)">
+	<summary>Применяет одну из операций симметрии, разрешенную для четырех игроков</summary>
+	<param name="minSqDist">Квадрат минимального расстояния. Если расстояние меньше, возвращает среднюю точку</param>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.PossibleOperationsList(System.Int32@,System.Int32@,System.Int32@)">
+	<summary>Возвращает список возможных операций симметрии</summary>
+	<param name="nRaces">Количество рас</param>
+	<param name="xSize">Размер по оси X</param>
+	<param name="ySize">Размер по оси Y</param>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.PossibleOperationsList(System.Int32@,RandomStackGenerator.Map@)">
+	<summary>Возвращает список возможных операций симметрии</summary>
+	<param name="nRaces">Количество рас</param>
+	<param name="m">Карта. Важен только размер</param>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.ApplySymm(RandomStackGenerator.Point@,System.Int32@,RandomStackGenerator.Map@,System.Int32@)">
+	<summary>Применяет одну из операций симметрии. ID симметрии в переменной m</summary>
+	<param name="minSqDist">Квадрат минимального расстояния. Если расстояние меньше, возвращает среднюю точку</param>
+</member><member name="M:RandomStackGenerator.SymmetryOperations.ApplySymm(RandomStackGenerator.Location@,System.Int32@,RandomStackGenerator.Map@,System.Int32@)">
+	<summary>Применяет одну из операций симметрии. ID симметрии в переменной m</summary>
+	<param name="minSqDist">Квадрат минимального расстояния. Если расстояние меньше, возвращает среднюю точку</param>
+</member><member name="F:RandomStackGenerator.Location.Race">
+	<summary>Базовая раса локации</summary>
+</member><member name="F:RandomStackGenerator.Location.ID">
+	<summary>Номер локации, больше ноля</summary>
+</member><member name="F:RandomStackGenerator.Location.pos">
+	<summary>Положение локации</summary>
+</member><member name="F:RandomStackGenerator.Location.IsObtainedBySymmery">
+	<summary>True, если получена операцией симметрии</summary>
+</member><member name="M:RandomStackGenerator.Location.gAlpha">
+	<summary>Возвращает угол поворота локации</summary>
+</member><member name="M:RandomStackGenerator.Location.gASize">
+	<summary>Возвращает длину оси А</summary>
+</member><member name="M:RandomStackGenerator.Location.gBSize">
+	<summary>Возвращает длину оси B</summary>
+</member><member name="M:RandomStackGenerator.Location.#ctor(RandomStackGenerator.Point@,System.Double,System.Double,System.Double,System.Int32,System.Boolean)">
+	<param name="p">Положение локации</param>
+	<param name="a">Половина ширины (если локация создается вне моего генератора, то можно ставить любое число &gt; 0)</param>
+	<param name="b">Половина высоты (если локация создается вне моего генератора, то можно ставить любое число &gt; 0)</param>
+	<param name="angle">Угол наклона от 0 до Пи (если локация создается вне моего генератора, то можно ставить любое число)</param>
+	<param name="i">Номер локации, больше ноля</param>
+	<param name="symmetred">Получено ли положение локации с помощью операции симметрии</param>
+</member><member name="M:RandomStackGenerator.ArrayZoom.Zoom(System.Int32[0:,0:],System.Int32)">
+	<summary>Увеличит массив в multiplicator раз</summary>
+</member><member name="M:RandomStackGenerator.ArrayZoom.CalcMultiplicator(System.Int32@,System.Int32@)">
+	<summary>Определит, во сколько раз нужно увеличить массив</summary>
+	<param name="size">max(ширина,высота)</param>
+	<param name="desiredsize">максимальный размер</param>
+</member><member name="M:RandomStackGenerator.ColorSelector.MakeColorMap(System.Int32[0:,0:]@)">
+	<summary>Подберет цвета в зависимости от значений в ячейках</summary>
+</member><member name="M:RandomStackGenerator.TerminationCondition.#ctor(System.Int32)">
+	<param name="maxT">время на работу</param>
+</member><member name="M:RandomStackGenerator.TerminationCondition.#ctor(System.Int64)">
+	<param name="maxT">время на работу</param>
+</member><member name="M:RandomStackGenerator.TerminationCondition.CheckTime">
+	<summary>Установит ExitFromLoops=True, если время истекло</summary>
+</member><member name="F:RandomStackGenerator.AttendedObject.TypeID">
+	<summary>Номер записи в массиве со всеми посещаемыми объектами</summary>
+</member><member name="F:RandomStackGenerator.AttendedObject.Size">
+	<summary>Длина стороны объекта</summary>
+</member><member name="F:RandomStackGenerator.AttendedObject.SizeHalf">
+	<summary>Половина длины стороны объекта</summary>
+</member><member name="F:RandomStackGenerator.AttendedObject.hasExternalGuard">
+	<summary>Нужно ли размещать охраняющий отряд</summary>
+</member><member name="F:RandomStackGenerator.AttendedObject.Area">
+	<summary>Площадь, которую нужно выделить под объект</summary>
+</member><member name="F:RandomStackGenerator.AttendedObject.dxy">
+	<summary>Положение объекта по X и Y относительно положения области, выделенной под него</summary>
+</member><member name="F:RandomStackGenerator.AttendedObject.sArea">
+	<summary>То же, что и Area</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.landscape">
+	<summary>Состояние тайлов</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.landmarks">
+	<summary>Объекты местности</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.mountains">
+	<summary>Горы</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.capitals">
+	<summary>Столицы</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.mines">
+	<summary>Шахты</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.merchantsItems">
+	<summary>Торговцы предметами</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.merchantsSpells">
+	<summary>Торговцы заклинаниями</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.merchantsUnits">
+	<summary>Наемники</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.trainers">
+	<summary>Тренеры</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.stacks">
+	<summary>Отряды</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.ruins">
+	<summary>Руины</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.cities">
+	<summary>Города</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.OwnerType.byGenereator">
+	<summary>Обозначение расы владельца, используемое генератором</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.OwnerType.byGame">
+	<summary>Обозначение расы владельца, используемое игрой</summary>
+</member><member name="M:RandomStackGenerator.shortMapFormat.OwnerType.#ctor(System.String@,RandomStackGenerator.GenDefaultValues@)">
+	<param name="genR">Обозначение расы в генераторе</param>
+	<param name="d">Инициализированный класс</param>
+</member><member name="F:RandomStackGenerator.shortMapFormat.simpleObject.pos">
+	<summary>Положение верхнего левого угла объекта</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.simpleObject.id">
+	<summary>ID объекта GXXXWWXXXX</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.simpleObject.size">
+	<summary>Размер объекта</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.ObjectWithName.objectName">
+	<summary>Название объекта</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.ObjectWithDescription.objectDescription">
+	<summary>Описание объекта</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.ObjectWithInternalStack.internalStackSettings">
+	<summary>Настройки генерации внутреннего отряда</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.ObjectWithInternalStack.internalStack">
+	<summary>Внутренний стек</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.TileState.ground">
+	<summary>Тип местности</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.TileState.owner">
+	<summary>Раса владельца</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.TileState.treeID">
+	<summary>ID дерева, если оно есть</summary>
+</member><member name="T:RandomStackGenerator.shortMapFormat.TileState.GroundType">
+	<summary>Тип местности</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.RuinObject.resourcesReward">
+	<summary>Ресурсы</summary>
+</member><member name="M:RandomStackGenerator.shortMapFormat.RuinObject.ItemReward">
+	<summary>Вернет ID предмета-награды, если таковой имеется. Если нет - Nothing</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.CityObject.externalStackSettings">
+	<summary>Настройки генерации внешнего отряда</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.CityObject.exteternalStack">
+	<summary>Внешний стек</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.CityObject.level">
+	<summary>Уровень города</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.CityObject.owner">
+	<summary>Обозначение расы владельца</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.MerchantItemObject.content">
+	<summary>Список предметов</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.MerchantSpellObject.content">
+	<summary>Список заклинаний</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.MerchantUnitObject.content">
+	<summary>Список юнитов</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.StackObject.pos">
+	<summary>Положение отряда</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.StackObject.stackSettings">
+	<summary>Настройки генерации отряда</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.StackObject.stack">
+	<summary>Отряд</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.StackObject.owner">
+	<summary>Обозначение расы владельца</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.CapitalObject.owner">
+	<summary>Обозначение расы владельца</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.CapitalObject.lord">
+	<summary>ID лорда владельца</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.CapitalObject.lordName">
+	<summary>Имя лорда владельца</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.CapitalObject.startResources">
+	<summary>Начальный запас ресурсов</summary>
+</member><member name="F:RandomStackGenerator.shortMapFormat.CapitalObject.items">
+	<summary>Предметы в столице</summary>
+</member><member name="M:RandomStackGenerator.shortMapFormat.MapConversion(RandomStackGenerator.Map@,RandomStackGenerator.ImpenetrableMeshGen.GenSettings@,RandomStackGenerator.ImpenetrableObjects.GlobalMapDecoration[]@,RandomStackGenerator.ObjectsContentSet@,System.Boolean@,System.Boolean@,System.Int32[]@,RandomStackGenerator.GenDefaultValues.TextLanguage@)">
+	<summary>Конвертирует карту для более удобной записи в файл</summary>
+	<param name="m">Карта</param>
+	<param name="settGen">Настройки генерации карты</param>
+	<param name="objContent">Полностью инициализированный класс</param>
+	<param name="fullSymmetry">Если карта симметрична, сделать отряды и награды абсолютно симметричными (пока не используется)</param>
+	<param name="usePlayableRaceUnitsInNeutralStacks">Если True, то в нейтральных отрядах будут использованы юниты из веток развития</param>
+	<param name="treesAmont">Количество деревьев для земли каждой расы. ID рас в Races.txt, последний столбец</param>
+</member><member name="F:RandomStackGenerator.Map.Loc">
+	<summary>Список локаций. Первые в списке - стартовые по числу играбельных рас на карте</summary>
+</member><member name="F:RandomStackGenerator.Map.board">
+	<summary>Поле карты, содержащее свойства каждой клетки</summary>
+</member><member name="F:RandomStackGenerator.Map.xSize">
+	<summary>Правая граница карты (например, если генерируем карту 24x48, то сюда пишем 23)</summary>
+</member><member name="F:RandomStackGenerator.Map.ySize">
+	<summary>Верхняя граница карты (например, если генерируем карту 24x48, то сюда пишем 47)</summary>
+</member><member name="F:RandomStackGenerator.Map.symmID">
+	<summary>Идентификатор симметрии, применяемой при генерации</summary>
+</member><member name="F:RandomStackGenerator.Map.groupStats">
+	<summary>Желаемые статы для каждой группы стэков. Индексы групп (key) хранятся в board(,).groupID. В этом словаре могут присутствовать и отрицательные ключи - для внутренней охраны городов. Положительный ключ - внешняя охрана, отрицательный, но равный по модулю - внутренняя охрана того же города, при этом внутренняя охрана не всегда может присутствовать</summary>
+</member><member name="F:RandomStackGenerator.Map.complited">
+	<summary>Какие этапы закончены</summary>
+</member><member name="F:RandomStackGenerator.Map.log">
+	<summary>Запись о ходе генерации карты</summary>
+</member><member name="M:RandomStackGenerator.Map.#ctor(System.Int32,System.Int32,System.Int32,RandomStackGenerator.Common@)">
+	<param name="xDim">Правая граница карты (например, если генерируем карту 24x48, то сюда пишем 23)</param>
+	<param name="yDim">Верхняя граница карты (например, если генерируем карту 24x48, то сюда пишем 47)</param>
+	<param name="SymmApplied">Идентификатор симметрии, применяемой при генерации</param>
+	<param name="common_data">Пекредаем инициализированный класс только если нужно что-то писать в лог</param>
+</member><member name="F:RandomStackGenerator.Map.Cell.locID">
+	<summary>ID локаций, с которыми связана эта клетка</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.groupID">
+	<summary>Для объектов с одинаковым ID выставляются одинаковые параметры генерации отрядов и лута или одинаковый класс.
+ При необходимости выставляются одинаковые отряды и лут.</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.TroopData.ObjectGuard">
+	<summary>True, отряд является внешней или внутренней охраной посещаемого объекта</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.TroopData.GuardLoc">
+	<summary>True, если на клетке нужно разместить обычный отряд</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.TroopData.PassGuardLoc">
+	<summary>True, если на клетке нужно разместить отряд, охраняющий проход в соседнюю локацию</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.TroopData.stackRace">
+	<summary>Расы, допустимые для воинов отряда, занимающего эту клетку</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.ObjectData.objectID">
+	<summary>Если клетка является углом посещаемого объекта c наименьшей координатой по X и Y, то здесь хранится ID объекта</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.ObjectData.objectName">
+	<summary>Если клетка является углом объекта c наименьшей координатой по X и Y, то здесь хранится ID объекта, как он записан в ресурсах игры</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.ObjectData.objRace">
+	<summary>Расы, допустимые для объекта, занимающего эту клетку</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.ObjectData.City">
+	<summary>Если 0, то город будет нейтральным, иначе - такая же раса, как и раса-владелец указанной локации</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.ObjectData.ObjectTags">
+	<summary>Объекты с какими тэгами можно расположить в данном тайле</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.CrossabilityData.isBorder">
+	<summary>True, если на клетке должен стоять непроходимый непосещаемый объект</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.CrossabilityData.isPenetrable">
+	<summary>True, если клетка обязательно должна быть проходимой</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.CrossabilityData.isPass">
+	<summary>True, если клетка является частью прохода между локациями</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.CrossabilityData.isAttended">
+	<summary>True, если клетка находится под посещаемым объектом</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.AreaData.isWater">
+	<summary>True, если на клетке вода</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.AreaData.isRoad">
+	<summary>True, если на клетке дорога</summary>
+</member><member name="F:RandomStackGenerator.Map.Cell.AreaData.isForest">
+	<summary>True, если на клетке лес</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.AverageRadius">
+	<summary>Средний радиус локаций</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.maxEccentricityDispersion">
+	<summary>Локации будут в форме эллипсов со случайным эксцентриситетом от (1-D)/(1+D) до (1+D)/(1-D)</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.maxRadiusDispersion">
+	<summary>При достаточном количестве места будут создаваться локации размером от (1-D)*R до (1+D)*R.
+ Когда свободного места станет недостаточно R начнет постепенно уменьшаться до половины от начального значения</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.DecorationsAmount">
+	<summary>Плотность непроходимых объектов внутри локации (0 - нет, 1 - максимальное количество)</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.maxGoldMines">
+	<summary>Количество золотых шахт на локацию</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.maxManaSources">
+	<summary>Количество источников маны на локацию</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.maxCities">
+	<summary>Количество нейтральных городов на локацию</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.maxVendors">
+	<summary>Количество торговцев на локацию</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.maxMercenaries">
+	<summary>Количество лагерей наемников на локацию</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.maxMages">
+	<summary>Количество башен мага на локацию</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.maxTrainers">
+	<summary>Количество тренеров на локацию</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.maxRuins">
+	<summary>Количество руин на локацию</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.randomAttendedObject">
+	<summary>Количество дополнительных случайных объектов на локации: 
+ торговец, башня мага, лагерь наемников, тренер или руины</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.nonMineObjectValueGold">
+	<summary>Когда задано нецелое число объектов в локации,
+ целая часть - количество, которое точно будет размещено при достаточном количестве свободного места,
+ нецелая часть - шанс разместить на один объект больше.
+ Если шанс не сработал, его величина, умноженная на nonMineObjectValueGold, 
+ будет прибавлена к количеству золотых шахт в локации</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.nonMineObjectValueMana">
+	<summary>Когда задано нецелое число объектов в локации,
+ целая часть - количество, которое точно будет размещено при достаточном количестве свободного места,
+ нецелая часть - шанс разместить на один объект больше.
+ Если шанс не сработал, его величина, умноженная на nonMineObjectValueMana, 
+ будет прибавлена к количеству источников маны в локации</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.minStackToStackDist">
+	<summary>Минимальное расстояние между отрядами</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.expAmount">
+	<summary>Примерное количество опыта за убийство всех отрядов в локации</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.mageSpellsMaxLevel">
+	<summary>Минимальный уровень заклинаний в лавке мага</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.mageSpellsMinLevel">
+	<summary>Максимальный уровень заклинаний в лавке мага</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.mageSpellsCount">
+	<summary>Количество заклинаний в лавке мага</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.mageGlobalSpellsEnabled">
+	<summary>Могут ли встречаться в лавке мага заклинания, действующие на всю карту</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.mercenariesMaxExpBar">
+	<summary>Максимальная планка опыта у маленьких наемников (для больших в два раза выше)</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.mercenariesMinExpBar">
+	<summary>Минимальная планка опыта у маленьких наемников (для больших в два раза выше)</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.mercenariesCount">
+	<summary>Количество наемников в лагере</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.merchMaxConsumableItemCost">
+	<summary>Максимальная стоимость расходного предмета у торговца</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.merchMinConsumableItemCost">
+	<summary>Минимальная стоимость расходного предмета у торговца</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.merchMaxNonconsumableItemCost">
+	<summary>Максимальная стоимость нерасходного предмета у торговца</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.merchMinNonconsumableItemCost">
+	<summary>Минимальная стоимость нерасходного предмета у торговца</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.merchItemsCost">
+	<summary>Полная стоимость лута у торговца</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.ruinsPowerMultiplicator">
+	<summary>Множитель силы отряда в руинах</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.ruinsWealthMultiplicator">
+	<summary>Множитель ценности лута в руинах</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.citiesPowerMultiplicator">
+	<summary>Множитель силы отрядов в городах</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.citiesWealthMultiplicator">
+	<summary>Множитель ценности лута в городах</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.RaceCities">
+	<summary>Города, принадлежащие играбельным расам</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.scaleContent">
+	<summary>Масштабировать количество посещаемых объектов и опыт за убийство всех отрядовв в локации</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.possibleRaces">
+	<summary>Список возможных базовых рас для локации.
+ В случае с локациями играбельных рас определяет расы нейтральных отрядов в локации. 
+ Список рас можно посмотреть в Resources\Constants.txt, параметр LocRacesBlocks.
+ Nothing, если нужен случайный выбор</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.ConnectWithAllNeighboringLocations">
+	<summary>True, если локация должна быть соединена с соседними независимо от глобальных настроек</summary>
+</member><member name="M:RandomStackGenerator.Map.SettingsLoc.IncrementOwner(System.Int32@,System.Int32@)">
+	<summary>Сменить владельцев в RaceCities, если номер локации расы-владельца больше 0.
+ Если полученный номер станет больше nRaces, то уменьшится на nRaces</summary>
+	<param name="i">Добавить к номеру владельца это число</param>
+	<param name="nRaces">Количество рас</param>
+</member><member name="M:RandomStackGenerator.Map.SettingsLoc.ToArray(RandomStackGenerator.Map.SettingsLoc@,RandomStackGenerator.Map.SettingsLoc@,System.Int32,System.Int32@)">
+	<param name="settRaceLoc">Настройки для стартовых локаций играбельных рас</param>
+	<param name="settCommLoc">Настройки для остальных локацийт</param>
+	<param name="nRaces">Количество играбельных рас</param>
+	<param name="nLocs">Количество локаций</param>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.SettingsRaceCity.level">
+	<summary>Уровень города</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.SettingsRaceCity.owner">
+	<summary>Номер локации расых-владельца. Если 0 - нейтрал</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsLoc.SettingsRaceCity.race">
+	<summary>Идентификатор расы-владельца</summary>
+</member><member name="M:RandomStackGenerator.Map.SettingsLoc.SettingsRaceCity.IncrementOwner(System.Int32@,System.Int32@)">
+	<summary>Сменить владельца, если номер локации расых-владельца больше 0.
+ Если полученный номер станет больше nRaces, то уменьшится на nRaces</summary>
+	<param name="i">Добавить к номеру владельца это число</param>
+	<param name="nRaces">Количество рас</param>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.xSize">
+	<summary>Правая граница карты (например, если генерируем карту 24x48, то сюда пишем 24)</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.ySize">
+	<summary>Верхняя граница карты (например, если генерируем карту 24x48, то сюда пишем 48)</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.minPassDist">
+	<summary>Минимальное расстояние между проходами</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.minPassWidth">
+	<summary>Минимальная ширина проходов</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.nRaces">
+	<summary>Количество рас</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.RaceLocsDistTolerance">
+	<summary>Генератор будет располагать локации со столицами так, чтобы для каждой из локаций выполнялось следующиее условие:
+ R1*(1+T) &gt;= R2, при этом R2 &gt; R1, где R1 и R2 - расстояние до двух ближайших локаций со столицами</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.AddGuardsBetweenLocations">
+	<summary>Расставлять ли стражей проходов между локациями</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.PassGuardsPowerMultiplicator">
+	<summary>Множитель силы стражей проходов между локациями</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.ObjectGuardsPowerMultiplicator">
+	<summary>Множитель силы стражей посещаемых объектов</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.LocExpRatio">
+	<summary>Отношение максимального опыта, получаемого за зачистку локации среднего размера, к минимальному.
+ Чем дальше локация от ближайшей столицы и чем ближе к центру, тем больше опыта за ее зачистку</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.StackStrength">
+	<summary>Множитель силы нейтралов</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.Wealth">
+	<summary>Множитель стоимости лута нейтралов</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.WaterAmount">
+	<summary>Количество воды на карте. 0 - без воды, 1 - очень много</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.SpellsMaxLevel">
+	<summary>Максимальный уровень заклинаний в столице</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.RoadsAmount">
+	<summary>Количество дорог на карте. 0 - без дорог, 1 - максимальное количество</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.ForestAmount">
+	<summary>Количество леса на карте. 0 - без леса, 1 - максимальное количество</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.CapitalRepulsion">
+	<summary>Размещение столиц. 0 - ближе к центру карты, 1 - ближе к краю карты</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.PassageCreationChance">
+	<summary>Определяет свободу перемещения по карте. 0 - генератор не старается соединять локации, 1 - генератор соединит каждую локацию с каждой соседней (но расовые старается не соединять)</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.ApplySymmetry">
+	<summary>Применять ли операции симметрии</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.SymmetryClass">
+	<summary> -1 - случайная симметрия, если .ApplySymmetry=True, игнорируется, если .ApplySymmetry=False.
+ Для двух рас: 0 - L2, 1 - xM, 2 - yM, 3 - xy1M, 4 - xy2M.
+ Для четырех рас: 0 - L4, 1 - xM+yM, 2 - xy1M+xy2M.
+ Смотри SymmetryOperations </summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.PlayersRaces">
+	<summary>Расы игроков. Nothing, если нужны случайные</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.StartGold">
+	<summary>Начальное количество золота</summary>
+</member><member name="F:RandomStackGenerator.Map.SettingsMap.StartMana">
+	<summary>Начальное количество родной маны</summary>
+</member><member name="M:RandomStackGenerator.Map.SettingsMap.Check">
+	<summary>Проверит корректность параметров. Вернет пустое сообщение, если все нормально</summary>
+</member><member name="M:RandomStackGenerator.Map.SettingsMap.isChecked">
+	<summary>True, если проверка параметров запускалась</summary>
+</member><member name="M:RandomStackGenerator.Map.ReadBlock(System.String[]@,System.String@,System.Int32@,System.Int32@,System.Boolean@,System.String@,System.Boolean@,System.Collections.Generic.List{System.String}@,System.String@)">
+	<param name="fileContent">Содержимое файла после ValueConverter.TxtSplit</param>
+	<param name="blockType">Тип блока</param>
+	<param name="blockNumber">Номер блока &gt; 0</param>
+</member><member name="M:RandomStackGenerator.Map.TestMap">
+	<summary>Вернет True, если все нормально, иначе стоит перегенерировать</summary>
+</member><member name="M:RandomStackGenerator.StackLocationsGen.Gen(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap,RandomStackGenerator.Map.SettingsLoc,RandomStackGenerator.Map.SettingsLoc,System.Int32@)">
+	<summary>Расставляет локации для отрядов на карту с подготовленную в ImpenetrableMeshGen
+ Для руин и городов выставляет локации с параметрами отрядов там же, где и хранится objectID.
+ Если не получится, вернет False</summary>
+	<param name="m">Карта с расставленными объектами и границами между локациями</param>
+	<param name="settMap">Общие настройки для карты</param>
+	<param name="settRaceLoc">Настройки для стартовых локаций играбельных рас.
+ Дробная часть определяет шанс округления большую сторону</param>
+	<param name="settCommLoc">Настройки для остальных локаций. 
+ Значение количества объектов для каждой локации будет умножаться на отношение площади локации к площади средней локации (Pi*AverageRadius^2).
+ Дробная часть определяет шанс округления в большую сторону</param>
+	<param name="maxGenTime">Максимальное время на операцию расстановки стражей проходов между локациями.
+ Она обычно производится меньше чем за секунду, но бывает, что выполняется дольше минуты.
+ В этом случае быстрее перегенерировать карту</param>
+</member><member name="M:RandomStackGenerator.StackLocationsGen.Gen(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap,RandomStackGenerator.Map.SettingsLoc[],System.Int32@)">
+	<summary>Расставляет локации для отрядов на карту с подготовленную в ImpenetrableMeshGen
+ Для руин и городов выставляет локации с параметрами отрядов там же, где и хранится objectID.
+ Если не получится, вернет False</summary>
+	<param name="m">Карта с расставленными объектами и границами между локациями</param>
+	<param name="settMap">Общие настройки для карты</param>
+	<param name="settLoc">Настройки для каждой локации. Первыми должны идти стартовые локации рас.
+ Коментарий к настройкам стартовых локаций играбельных рас:
+ дробная часть определяет шанс округления большую сторону.
+ Комментарий к настройкам остальных локаций:
+ Значение количества объектов для каждой локации будет умножаться на отношение площади локации к площади, заданной в настройках (Pi*AverageRadius^2).
+ Дробная часть определяет шанс округления в большую сторону. В случае округления вниз дробная часть добавляется к максимальному количеству шахт </param>
+	<param name="maxGenTime">Максимальное время на операцию расстановки стражей проходов между локациями.
+ Она обычно производится меньше чем за секунду, но бывает, что выполняется дольше минуты.
+ В этом случае быстрее перегенерировать карту</param>
+</member><member name="F:RandomStackGenerator.StackLocationsGen.PassageGuardPlacer.bestOutput">
+лучшее положение гвардов
+
+</member><member name="F:RandomStackGenerator.StackLocationsGen.PassageGuardPlacer.bestN">
+минимальное количество гвардов, которыми закрыли проход
+
+</member><member name="F:RandomStackGenerator.StackLocationsGen.PassageGuardPlacer.currentNLimit">
+максимальное количество гвардов
+
+</member><member name="F:RandomStackGenerator.StackLocationsGen.PassageGuardPlacer.term">
+лимит времени на задачу
+
+</member><member name="F:RandomStackGenerator.StackLocationsGen.PassageGuardPlacer.pointsList">
+список точек прохода
+
+</member><member name="F:RandomStackGenerator.StackLocationsGen.PassageGuardPlacer.justCheckGuardNecessity">
+просто проверит, нужны ли вообще гварды
+
+</member><member name="F:RandomStackGenerator.StackLocationsGen.PassageGuardPlacer.currentOutput">
+	<summary>Отправляй в качестве инпута в поле IDs</summary>
+</member><member name="M:RandomStackGenerator.StackLocationsGen.PassageGuardPlacer.PlaceGuardLoc(System.Int32,System.Int32@)">
+	<param name="currentN">количество поставленных гвардов - 1</param>
+	<param name="selected_I">id выбранной точки</param>
+</member><member name="F:RandomStackGenerator.Point.X">
+	<summary>Координата по X</summary>
+</member><member name="F:RandomStackGenerator.Point.Y">
+	<summary>Координата по Y</summary>
+</member><member name="M:RandomStackGenerator.Point.#ctor(System.Int32,System.Int32)">
+	<param name="x">Координата по X</param>
+	<param name="y">Координата по Y</param>
+</member><member name="M:RandomStackGenerator.Point.SqDist(RandomStackGenerator.Point@)">
+	<summary>Возвращает квадрат расстояния до точки</summary>
+	<param name="p">Координаты точки</param>
+</member><member name="M:RandomStackGenerator.Point.SqDist(System.Int32@,System.Int32@)">
+	<summary>Возвращает квадрат расстояния до точки</summary>
+	<param name="x">Координата по X</param>
+	<param name="y">Координата по Y</param>
+</member><member name="M:RandomStackGenerator.Point.SqDist(System.Double@,System.Double@)">
+	<summary>Возвращает квадрат расстояния до точки</summary>
+	<param name="x">Координата по X</param>
+	<param name="y">Координата по Y</param>
+</member><member name="M:RandomStackGenerator.Point.Dist(RandomStackGenerator.Point@)">
+	<summary>Возвращает расстояние до точки</summary>
+	<param name="p">Координаты точки</param>
+</member><member name="M:RandomStackGenerator.Point.Dist(System.Int32@,System.Int32@)">
+	<summary>Возвращает расстояние до точки</summary>
+	<param name="x">Координата по X</param>
+	<param name="y">Координата по Y</param>
+</member><member name="M:RandomStackGenerator.Point.Dist(System.Double@,System.Double@)">
+	<summary>Возвращает расстояние до точки</summary>
+	<param name="x">Координата по X</param>
+	<param name="y">Координата по Y</param>
+</member><member name="M:RandomStackGenerator.WaterGen.Gen(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap@,RandomStackGenerator.ImpenetrableMeshGen@)">
+	<summary>Сгенерирует озера на карте</summary>
+	<param name="m">Карта с сгенерированной силой отрядов</param>
+	<param name="settMap">Общие настройки для карты</param>
+</member><member name="F:RandomStackGenerator.WaterGen.FreePointsInfo.isFree">
+	<summary>
+ True, если:
+  Not owner.wpCommon.HaveToBeGround
+  расстояние до обрабатываемой локации меньше или равно locationBorderTolerance.
+  по соседству есть хоть один тайл, который не занят непосещаемым объектом и может быть занят водой
+ </summary>
+</member><member name="F:RandomStackGenerator.WaterGen.WaterPlacer_2.WaterBlock.key">
+	<summary>
+ Блок в текстовом виде
+ </summary>
+</member><member name="F:RandomStackGenerator.WaterGen.WaterPlacer_2.WaterBlock.isWater">
+	<summary>
+ Должен ли быть тайл водным.
+ (row_index, column_index)
+ </summary>
+</member><member name="F:RandomStackGenerator.WaterGen.WaterPlacer_2.WaterBlock.waterAmount">
+	<summary>
+ Количество воды
+ </summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableObjects.MapObject.xSize">
+	<summary>Ширина объекта</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableObjects.MapObject.ySize">
+	<summary>Высота объекта</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableObjects.MapObject.name">
+	<summary>Имя объекта</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableObjects.Landmark.tags">
+	<summary>Тэги для подзон</summary>
+	<remarks></remarks>
+</member><member name="F:RandomStackGenerator.ImpenetrableObjects.PlateauObject.connectors">
+	<summary>Как скреплять объекты</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableObjects.PlateauObject.border">
+	<summary>Эти точки должны быть на границе карты</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableObjects.PlateauObject.isWaterfall">
+	<summary>Является ли водопадом</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableObjects.GlobalMapDecoration.ID">
+	<summary>GxxxMGxxxx</summary>
+</member><member name="F:RandomStackGenerator.ImpenetrableObjects.GlobalMapDecoration.Size">
+	<summary>Размеры объекта</summary>
+</member><member name="M:RandomStackGenerator.ImpenetrableObjects.GlobalMapDecoration.MountainSize(System.String@)">
+	<summary>Вернет размер горы</summary>
+	<param name="mountainID">MOMNExxyy</param>
+</member><member name="M:RandomStackGenerator.ImpenetrableObjects.#ctor(RandomStackGenerator.ImpenetrableObjects.GlobalMapDecoration[]@,System.Boolean,RandomStackGenerator.AllDataStructues.Spell[]@,RandomStackGenerator.Common@)">
+	<param name="ObjectsSize">Размеры всех объектов местности</param>
+	<param name="AddLoreUnitsToExcluded">Добавлять ли лорных юнитов в список исключенных</param>
+	<param name="spells">Все заклинания в игре</param>
+</member><member name="M:RandomStackGenerator.ImpenetrableObjects.Gen(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap@,RandomStackGenerator.Map.SettingsLoc@,RandomStackGenerator.Map.SettingsLoc@)">
+	<summary>Определит ID объектов и настройки содержимого лавок</summary>
+	<param name="m">Карта со сгенерированными расами отрядов</param>
+	<param name="settMap">Общие настройки для карты</param>
+	<param name="settRaceLoc">Настройки для стартовых локаций играбельных рас.
+ Дробная часть определяет шанс округления большую сторону</param>
+	<param name="settCommLoc">Настройки для остальных локаций. 
+ Значение количества объектов для каждой локации будет умножаться на отношение площади локации к площади средней локации (Pi*AverageRadius^2).
+ Дробная часть определяет шанс округления в большую сторону</param>
+</member><member name="M:RandomStackGenerator.ImpenetrableObjects.Gen(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsMap@,RandomStackGenerator.Map.SettingsLoc[]@)">
+	<summary>Определит ID объектов и настройки содержимого лавок</summary>
+	<param name="m">Карта со сгенерированными расами отрядов</param>
+	<param name="settMap">Общие настройки для карты</param>
+	<param name="settLoc">Настройки для каждой локации. Первыми должны идти стартовые локации рас.
+ Коментарий к настройкам стартовых локаций играбельных рас:
+ дробная часть определяет шанс округления большую сторону.
+ Комментарий к настройкам остальных локаций:
+ Значение количества объектов для каждой локации будет умножаться на отношение площади локации к площади, заданной в настройках (Pi*AverageRadius^2).
+ Дробная часть определяет шанс округления в большую сторону. В случае округления вниз дробная часть добавляется к максимальному количеству шахт </param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.#ctor(RandomStackGenerator.RandStack@)">
+	<param name="RStack">Инициализированный класс</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.SetMineType(System.String)">
+	<summary>Определит тип шахты</summary>
+	<param name="mineObjectName">Название шахты, как его выдал генератор</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.MakeSpellsList(RandomStackGenerator.AllDataStructues.DesiredStats@,System.Collections.Generic.List{System.String},RandomStackGenerator.Log@,System.Int32)">
+	<summary>Создаст список заклинаний</summary>
+	<param name="d">Желаемые параметры доступных заклинаний. Имеет значение только .shopContent</param>
+	<param name="AllManaSources">Список источников маны на карте (см. DefMapObjects)</param>
+	<param name="log">Лог для записей результатов</param>
+	<param name="LogID">Номер задачи. От 0 до Size-1. Если меньше 0, запись будет сделана в общий лог</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.MakeMercenariesList(RandomStackGenerator.AllDataStructues.DesiredStats@,RandomStackGenerator.Log@,System.Int32)">
+	<summary>Создаст список наемников</summary>
+	<param name="d">Желаемые параметры доступных наемников. Имеет значение только .shopContent</param>
+	<param name="log">Лог для записей результатов</param>
+	<param name="LogID">Номер задачи. От 0 до Size-1. Если меньше 0, запись будет сделана в общий лог</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.MakeMerchantItemsList(RandomStackGenerator.AllDataStructues.DesiredStats@,System.Collections.Generic.Dictionary{System.Int32,RandomStackGenerator.AllDataStructues.Restriction}@,RandomStackGenerator.Log@,System.Int32)">
+	<summary>Создаст список предметов</summary>
+	<param name="d">Желаемые параметры доступных предметов. Имеет значение только .shopContent и .IGen.
+ IGen используется только при генерации по цене</param>
+	<param name="TypeCostRestriction">Ключ - тип предмета, Значение - ограничение стоимости. Игнорируется, если массив неинициализирован</param>
+	<param name="log">Лог для записей результатов</param>
+	<param name="LogID">Номер задачи. От 0 до Size-1. Если меньше 0, запись будет сделана в общий лог</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.GetSpellsListSettings(System.Int32,System.String[]@)">
+	<summary>Вернет настройки генерации заклинаний</summary>
+	<param name="mode">-1 - случайный мод в каждой строчке, 1 - вернет ID, 2 - УровеньРасаМассовость, 3 - Тип, 4 - Тип#УровеньРасаМассовость</param>
+	<param name="input">ID заклинаний</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.GetSpellsListSettings(System.Int32,System.Collections.Generic.List{System.String}@)">
+	<summary>Вернет настройки генерации заклинаний</summary>
+	<param name="mode">-1 - случайный мод в каждой строчке, 1 - вернет ID, 2 - УровеньРасаМассовость, 3 - Тип, 4 - Тип#УровеньРасаМассовость</param>
+	<param name="input">ID заклинаний</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.GetSpellsListSettings(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsLoc[]@,System.Int32,System.Int32,System.Int32)">
+	<summary>Вернет настройки генерации заклинаний</summary>
+	<param name="m">Готовая карта</param>
+	<param name="sett">Настройки локаций</param>
+	<param name="x">Положение по X</param>
+	<param name="y">Положение по Y</param>
+	<param name="nRaces">Количество играбельных рас</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.GetMerchantListSettings(System.Int32,System.String[]@)">
+	<summary>Вернет настройки генерации предметов</summary>
+	<param name="mode">-1 - случайный мод в каждой строчке, 1 - вернет ID, 2 - Цена, 3 - Тип, 4 - Тип#Цена</param>
+	<param name="input">ID заклинаний</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.GetMerchantListSettings(System.Int32,System.Collections.Generic.List{System.String}@)">
+	<summary>Вернет настройки генерации предметов</summary>
+	<param name="mode">-1 - случайный мод в каждой строчке, 1 - вернет ID, 2 - Цена, 3 - Тип, 4 - Тип#Цена</param>
+	<param name="input">ID заклинаний</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.GetMerchantListSettings(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsLoc[]@,System.Int32,System.Int32)">
+	<summary>Вернет настройки генерации предметов</summary>
+	<param name="m">Готовая карта</param>
+	<param name="sett">Настройки локаций</param>
+	<param name="x">Положение по X</param>
+	<param name="y">Положение по Y</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.GetMercenariesListSettings(System.Int32,System.String[]@)">
+	<summary>Вернет настройки генерации наемников</summary>
+	<param name="mode">-1 - случайный мод в каждой строчке, 1 - вернет ID, 2 - Планка опыта, 3 - Раса, 4 - Раса#Планка опыта</param>
+	<param name="input">ID юнитов</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.GetMercenariesListSettings(System.Int32,System.Collections.Generic.List{System.String}@)">
+	<summary>Вернет настройки генерации наемников</summary>
+	<param name="mode">-1 - случайный мод в каждой строчке, 1 - вернет ID, 2 - Планка опыта, 3 - Раса, 4 - Раса#Планка опыта</param>
+	<param name="input">ID юнитов</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.GetMercenariesListSettings(RandomStackGenerator.Map@,RandomStackGenerator.Map.SettingsLoc[]@,System.Int32,System.Int32,System.Int32)">
+	<summary>Вернет настройки генерации наемников</summary>
+	<param name="m">Готовая карта</param>
+	<param name="sett">Настройки локаций</param>
+	<param name="x">Положение по X</param>
+	<param name="y">Положение по Y</param>
+	<param name="nRaces">Количество играбельных рас</param>
+</member><member name="M:RandomStackGenerator.ObjectsContentSet.LordRandomizer(System.String@,System.Boolean@)">
+	<summary>Вернет ID случайного лорда, соответствующего расе</summary>
+	<param name="race">Раса</param>
+	<param name="isGameRace">True - раса в виде G000RR0000, False - раса обозначена символом, используемым генератором</param>
+</member><member name="F:RandomStackGenerator.SetName.log">
+	<summary>Сюда генератор пишет лог</summary>
+</member><member name="M:RandomStackGenerator.SetName.GenName(RandomStackGenerator.AllDataStructues.Stack[]@,RandomStackGenerator.RandStack@,System.Boolean,System.Int32)">
+	<summary>Присвоит имя отрядам</summary>
+	<param name="stack">Уже сгенерированные стэки</param>
+	<param name="R">Инициализированный класс</param>
+	<param name="newMapGen">True, если это первый вызов этой функции при генерации новой карты</param>
+	<param name="LogID">Номер задачи. От 0 до Size-1. Если меньше 0, запись будет сделана в общий лог</param>
+</member><member name="M:RandomStackGenerator.SetName.LordName(System.Int32@,System.Boolean,System.Int32)">
+	<summary>Присвоит имя лорду</summary>
+	<param name="RaceID">ID расы лорда</param>
+	<param name="newMapGen">True, если это первый вызов этой функции при генерации новой карты</param>
+	<param name="LogID">Номер задачи. От 0 до Size-1. Если меньше 0, запись будет сделана в общий лог</param>
+</member>
+</members>
+</doc>
