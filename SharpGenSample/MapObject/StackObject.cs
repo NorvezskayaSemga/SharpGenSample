@@ -19,6 +19,7 @@ namespace SharpGenSample.MapObject
         public int priority = 0;
         public Pair<int, int> orderTarget = new Pair<int, int>(0,0);
         public bool ignoreAI;
+        public Pair<int, int> owner;
 
         enum Order
         {

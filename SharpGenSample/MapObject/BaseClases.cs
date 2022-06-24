@@ -43,6 +43,7 @@ namespace SharpGenSample.MapObject
     }
     public class Unit
     {
+        public Unit(string id_ ="", int level_ = 1) { id = id_; level = level_; }
         public string id = "";
         public int level = 1;
         public List<string> modifiers = new List<string>();

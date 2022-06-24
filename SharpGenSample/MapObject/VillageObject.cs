@@ -19,5 +19,6 @@ namespace SharpGenSample.MapObject
         public string desc;
         public GroupData visiter = new GroupData();
         public GroupData garrison = new GroupData();
+        public Pair<int, int> owner;
     };
 }

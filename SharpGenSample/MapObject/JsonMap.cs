@@ -44,7 +44,7 @@ namespace SharpGenSample.MapObject
             result.Read(curString.ToUpper());
             return result;
         }
-        void Read(string curString)
+        public  void Read(string curString)
         {
             gold = ValueByLetter(curString, 'G');
             demons = ValueByLetter(curString, 'R');
@@ -375,6 +375,7 @@ namespace SharpGenSample.MapObject
             target["order"] = stack.order;
             target["priority"] = stack.priority;
             target["orderTarget"] = stack.orderTarget.key.ToString() + ":" +  stack.orderTarget.value.ToString();
+            target["owner"] = stack.owner.key.ToString() + ":" + stack.owner.value.ToString();
             target["ignoreAI"] = stack.ignoreAI;
             JObject groupObject = new JObject();
             SaveGroup(ref groupObject, stack.stack);
@@ -388,6 +389,7 @@ namespace SharpGenSample.MapObject
             target["level"] = village.level;
             target["name"] = village.name;
             target["desc"] = village.desc;
+            target["owner"] = village.owner.key.ToString() + ":" + village.owner.value.ToString();
 
             JObject visiter = new JObject();
             SaveGroup(ref visiter, village.visiter);
